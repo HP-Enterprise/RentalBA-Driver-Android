@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+<dimen name="all_font4">16dp</dimen><!-- 字体大小4 -->
+    <!-- app-->
+	<dimen name="page_textsize">14dp</dimen>
+	
+	 <!-- 车型列表 -->
+	<dimen name="carlist_textsize">13dp</dimen>
+	
+	<!--侧边栏 -->
+    <dimen name="mian_menu_paddingbottom">12dp</dimen>
+    <dimen name="xlistview_headhight">110dp</dimen>
+    
+    <!-- 注册 -->
+	<dimen name="register_font_edit">16dp</dimen>
+	<dimen name="register_edit_height">46dp</dimen>
+	<dimen name="register_edit_marginleft">20dp</dimen>
+	<dimen name="register_edit_marginright">20dp</dimen>
+	<dimen name="register_edit_margintop">2dp</dimen>
+	<dimen name="register_edit_marginbotton">2dp</dimen>
+	<dimen name="register_edit_corner">23dp</dimen>	
+	<dimen name="register_edit_stroken">1dp</dimen>
+	<dimen name="register_edit_top">50dp</dimen>
+	<dimen name="register_edit_middle">16dp</dimen>
+	
+	<!-- 注册 -->
+	<dimen name="rippleStrokeWidth">2dp</dimen>
+    <dimen name="rippleRadius">12dp</dimen>
+	
+    <!-- 用户信息 -->
+	<dimen name="user_text_size">16dp</dimen>
+	<dimen name="user_label_size">16dp</dimen>
+	<dimen name="user_arrow_width">15dp</dimen>
+    <dimen name="user_arrow_height">15dp</dimen>
+    <dimen name="user_line">1dp</dimen>
+    
+    <!-- 申请内容 -->
+    <dimen name="longrental">32dp</dimen>
+    
+    <!-- 接送机 -->
+    <dimen name="mypage_arrow_width">15dp</dimen>
+    <dimen name="mypage_arrow_height">15dp</dimen>
+</resources>

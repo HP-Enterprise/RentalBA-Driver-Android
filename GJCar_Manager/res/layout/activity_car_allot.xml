@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/page_bg2"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/model"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/page_bg2"
+        android:paddingBottom="4dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:text="租车车型：华颂-自动2.0（中配）"
+        android:textColor="@color/page_text_normal1"
+        android:textSize="16dp" />
+
+    <com.gjmgr.view.listview.XListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/page_bg2"
+        android:dividerHeight="8dp"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
+    </com.gjmgr.view.listview.XListView>
+
+</LinearLayout>

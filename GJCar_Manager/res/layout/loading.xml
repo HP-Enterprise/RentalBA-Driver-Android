@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/loadlinearlayout"
+	    android:clickable="true"
+	    android:layout_marginTop="30dp"
+	    android:paddingTop="15dp" 
+		android:paddingBottom="15dp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:gravity="center"
+	    android:visibility="gone">
+    	
+	    <ImageView 
+	        android:id="@+id/loadiamge"
+	        android:layout_gravity="center"
+		    android:layout_width="16dp"
+		    android:layout_height="16dp"
+		    android:background="@drawable/load_rotate"/>
+	    <TextView 
+	        android:id="@+id/loadtext"
+	        android:layout_marginLeft="5dp"
+			android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+		    android:text="正在加载中..."
+		    android:textColor="@color/page_text_normal1"
+		    android:textSize="14dp"/>	 
+		       
+    </LinearLayout>

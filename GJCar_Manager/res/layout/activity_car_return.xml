@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/page_bg2"
+    android:orientation="vertical" >
+
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="还车时间"
+            android:textColor="@color/page_text_normal_bolder"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingLeft="20dp"
+            android:hint="请输入时间"
+ 			android:textColorHint="@color/page_text_normal2" 
+            android:text=""
+            android:textColor="@color/page_text_normal2"
+            android:textSize="14dp"
+            android:background="@color/white" 
+            android:focusable="false"  
+            android:focusableInTouchMode="false"  />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="还车油量"
+            android:textColor="@color/page_text_normal_bolder"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/oil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingLeft="20dp"
+            android:hint="请输入油量的百分比"
+ 			android:textColorHint="@color/page_text_normal2" 
+            android:text=""
+            android:textColor="@color/page_text_normal2"
+            android:textSize="14dp"
+            android:background="@color/white"
+            android:focusable="false"  
+            android:focusableInTouchMode="false" />
+
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="还车里程"
+            android:textColor="@color/page_text_normal_bolder"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingLeft="20dp"
+            android:hint="请输入里程的公里数"
+ 			android:textColorHint="@color/page_text_normal2" 
+            android:text=""
+            android:textColor="@color/page_text_normal2"
+            android:textSize="14dp"
+            android:background="@color/white"
+            android:inputType="number" />
+    </LinearLayout>
+
+    
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/register_edit_marginleft"
+        android:layout_marginRight="@dimen/register_edit_marginright"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/register_btn_submit"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/register_btnfont"
+        android:textSize="17dp" />
+
+</LinearLayout>

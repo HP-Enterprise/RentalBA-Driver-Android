@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="12dp"
+	    android:paddingBottom="12dp"
+	    android:paddingLeft="16dp"
+	    android:paddingRight="16dp"
+	    android:background="#ffffff">
+	    <TextView
+	        android:id="@+id/takecar_datepicker_ok"
+	        android:clickable="true"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+	        android:layout_alignParentRight="true"
+	        android:text="确定"
+	        android:textColor="#1B8CCD"
+	        android:textSize="14dp"/>
+	    
+	    <TextView
+	        android:id="@+id/takecar_datepicker_takereturn"
+	        android:clickable="true"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+	        android:layout_centerInParent="true"
+	        android:text=""
+	        android:textColor="#1B8CCD"
+	        android:textSize="14dp"/>
+	    
+	    <TextView
+	        android:id="@+id/takecar_datepicker_cancle"
+	        android:clickable="true"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+	        android:layout_alignParentLeft="true"
+	        android:text="取消"
+	        android:textColor="#1B8CCD"
+	        android:textSize="14dp"/>
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:background="#d0d0d0"/>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <com.gjcar.view.wheelview.WheelView
+            android:id="@+id/year"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <com.gjcar.view.wheelview.WheelView
+            android:id="@+id/month"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <com.gjcar.view.wheelview.WheelView
+            android:id="@+id/day"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+        
+		<com.gjcar.view.wheelview.WheelView
+            android:id="@+id/hour"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <com.gjcar.view.wheelview.WheelView
+            android:id="@+id/minute"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,181 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Fragment_Content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/main_title_logo" />
+    </LinearLayout>
+
+    <!-- 内容栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/white"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <!-- 第一栏：手机号 -->
+
+        <LinearLayout
+            android:id="@+id/lineone"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:layout_marginLeft="@dimen/register_edit_marginleft"
+            android:layout_marginRight="@dimen/register_edit_marginright"
+            android:background="@drawable/register_shape_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_phone"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/register_edit_marginbotton"
+                android:layout_marginLeft="@dimen/register_edit_marginleft"
+                android:layout_marginTop="@dimen/register_edit_margintop"
+                android:layout_weight="9"
+                android:background="@color/register_page"
+                android:hint="请输入账号"
+                android:inputType="phone"
+                android:textColor="@color/register_edit_font"
+                android:textColorHint="@color/register_edit_font"
+                android:textCursorDrawable="@drawable/register_edit_corsor"
+                android:textSize="@dimen/register_font_edit" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/register_edit_marginbotton"
+                android:layout_marginRight="@dimen/register_edit_marginright"
+                android:layout_marginTop="@dimen/register_edit_margintop"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/login_phone_delete"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/delete_all_text"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 第二栏：密码栏 -->
+
+        <LinearLayout
+            android:id="@+id/linetwo"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:layout_below="@id/lineone"
+            android:layout_marginLeft="@dimen/register_edit_marginleft"
+            android:layout_marginRight="@dimen/register_edit_marginright"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/register_shape_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_pwd"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/register_edit_marginbotton"
+                android:layout_marginLeft="@dimen/register_edit_marginleft"
+                android:layout_marginTop="@dimen/register_edit_margintop"
+                android:layout_weight="15"
+                android:background="@color/register_page"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:textColor="@color/register_edit_font"
+                android:textColorHint="@color/register_edit_font"
+                android:textCursorDrawable="@drawable/register_edit_corsor"
+                android:textSize="@dimen/register_font_edit" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/register_edit_marginbotton"
+                android:layout_marginRight="@dimen/register_edit_marginright"
+                android:layout_marginTop="@dimen/register_edit_margintop"
+                android:layout_weight="2" >
+
+                <ImageView
+                    android:id="@+id/login_pwd_delete"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/delete_all_text"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/register_edit_marginbotton"
+                android:layout_marginRight="@dimen/register_edit_marginright"
+                android:layout_marginTop="@dimen/register_edit_margintop"
+                android:layout_weight="3" >
+
+                <ImageView
+                    android:id="@+id/login_pwd_show"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/register_pwd_hide" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 第三栏：登录兰 -->
+
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/register_edit_height"
+            android:layout_marginLeft="@dimen/register_edit_marginleft"
+            android:layout_marginRight="@dimen/register_edit_marginright"
+            android:layout_marginTop="@dimen/register_edit_middle"
+            android:background="@drawable/register_btn_submit"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/register_btnfont"
+            android:textSize="17dp" />
+
+        <!-- 忘记密码 -->
+
+        <TextView
+            android:id="@+id/login_forgetpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_marginTop="@dimen/register_edit_middle"
+            android:background="@drawable/login_findpassword"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:text="修改密码"
+            android:textColor="#bbbbbb"
+            android:textSize="15dp" />
+        
+         
+    </LinearLayout>
+
+</LinearLayout>

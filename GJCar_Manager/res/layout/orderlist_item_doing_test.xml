@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/a_lin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/page_line1" />
+
+        <LinearLayout
+            android:id="@+id/a_lin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fba93b"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:id="@+id/a_order_ty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接机"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/a_order_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="2017年04月20日  15:00"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/page_line1" />
+
+
+        
+        <!-- 中间行 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!-- 左边 -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:visibility="visible" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp" >
+
+                    <TextView
+                        android:id="@+id/a_orderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:text="订单编号：1017258"
+                        android:textColor="@color/page_text_normal_bolder"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/a_order_distance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="预估里程：50公里"
+                        android:textColor="@color/page_text_normal_bolder"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <com.gjmgr.view.widget.SingleLineZoomTextView
+                    android:id="@+id/b_air_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="6dp"
+                    android:text="航班信息：上海虹桥机场/M270"
+                    android:textColor="@color/page_text_normal_bolder"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="6dp" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/b_start_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:text="火车站机场"
+                            android:textColor="@color/page_text_normal_bolder"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp" >
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/b_car"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/page_text_normal1"
+                                android:textSize="12dp" />
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginRight="12dp"
+                                android:background="@color/page_line1" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="6dp" >
+
+                        <TextView
+                            android:id="@+id/b_end_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="湖北省武汉市武昌区火车站"
+                            android:textColor="@color/page_text_normal_bolder"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 下边 -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/c_getcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/order_greet_bg"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="提车"
+                    android:textColor="@color/page_text_normal_bolder"
+                    android:textSize="13dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/c_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/order_greet_bg"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="上车"
+                    android:textColor="@color/page_text_normal_bolder"
+                    android:textSize="13dp"
+                    android:visibility="gone"/>
+                
+                <TextView
+                    android:id="@+id/c_cancle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/order_greet_bg"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="下车"
+                    android:textColor="@color/page_text_normal_bolder"
+                    android:textSize="13dp"
+                    android:visibility="gone"/>
+                
+                <TextView
+                    android:id="@+id/c_returncar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/order_greet_bg"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="还车"
+                    android:textColor="@color/page_text_normal_bolder"
+                    android:textSize="13dp"
+                    android:visibility="gone"/>
+                
+            </LinearLayout>
+        </LinearLayout>
+		
+        <!-- 尾部 -->
+		
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/page_line1" />
+
+        <!-- 第x栏：费用栏 -->
+    </LinearLayout>
+
+</LinearLayout>

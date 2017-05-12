@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">赶脚司机端</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+     <!-- 更新app-->
+    <string name="dialog_ok">立即更新</string>
+    <string name="dialog_cancel">稍后再说</string>
+    
+    <string name="user_text_weight">4</string>
+</resources>

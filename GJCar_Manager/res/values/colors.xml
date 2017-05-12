@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 常用顏色 -->
+    <color name="white">#ffffff</color>
+    <color name="transparent">#ffffff</color>
+    <color name="gray_more">#888888</color>
+    <color name="gray">#efeeee</color>
+    <color name="gray_line">#c3c3c3</color>
+    <!-- app -->
+    <color name="page_bg">#eeeeef</color>
+    <color name="page_bg1">#f7f7f7</color>
+    <color name="page_bg2">#F6F8F7</color>
+    <color name="page_titlebar_bg">#f2c81c</color>
+	<color name="page_text_normal">#9e9e9e</color>
+	<color name="page_text_normal_bolder">#4e4e4e</color>
+	
+	<color name="page_text_normal1">#595757</color>
+	<color name="page_text_normal2">#7b818c</color>	
+	<color name="page_text_normal3">#c9c9ca</color>	
+	<color name="page_text_select">#f2c81c</color>
+	<color name="page_text_select1">#85BB43</color>
+	<color name="page_line">#cccccc</color>
+	<color name="page_line1">#eeeeef</color>
+	
+	<color name="color_one">#8CEBFF</color>
+	<color name="color_two">#FFD38C</color>
+	<color name="color_three">#C5FF8B</color>
+
+	<!-- 更新对话框 -->
+	<color name="blue_btn_bg_color">#AEDEF4</color>
+    <color name="blue_btn_bg_pressed_color">#96BFD2</color>
+	<color name="gray_btn_bg_color">#D0D0D0</color>
+    <color name="gray_btn_bg_pressed_color">#B6B6B6</color> 
+   	<color name="button_text_color">#FFFFFF</color>
+   	
+   	<!-- 下载进度条 -->
+    <color name="update_download_progress_name">#4d4d4d</color>  
+    <color name="update_download_progress_text">#828282</color>  
+    <color name="update_download_btnormal">#4fc1e9</color> 
+    <color name="update_download_btpress">#ffffff</color> 
+   	
+    <!-- 注册，登录 -->
+    <color name="register_hint">#ff54acea</color> <!-- 短信验证 -->
+    <color name="register_titlebar">#f8f8f8</color>
+    <color name="register_titlefont">#0a0a0a</color>
+    <color name="register_page">#F6F8F7</color>
+    <color name="register_titleline">#bfbfbf</color>
+    <color name="register_stroke">#cecece</color>
+    <color name="register_edit_font">#7f7f7f</color>
+    <color name="register_btn">#30ade0</color>
+    <color name="register_btnfont">#e4ffff</color>
+    
+    <!-- 用户信息--> 
+    <color name="user_label_color">#B5B5B5</color>
+    <color name="user_text_color">#7f7f7f</color>
+    <color name="user_line">#e1e1e1</color>
+    
+    <!-- 车型列表 --> 
+	<color name="carlist_font_color">#9e9e9e</color>
+	<color name="carlist_title_color">#30ade0</color>
+	
+	<!-- 个人信息 -->
+	<color name="main_menu_text">#999999</color>
+	
+	<!-- 短租自驾页面 -->
+	<color name="text_color">#9FA1A0</color>
+	
+	<!-- 波浪条纹 -->
+	<color name="rippelColor">#0099CC</color>
+
+</resources>

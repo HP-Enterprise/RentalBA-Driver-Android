@@ -1,0 +1,284 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/page_bg2"
+    android:orientation="vertical"
+    android:id="@+id/activity" >
+
+    <!-- 标题栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+            <!-- 1.证件类型 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="头像"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    android:gravity="right" >
+
+                    <com.gjmgr.view.widget.ImageView_Round
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/main_menu_userinfo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+            <!-- 1.修改昵称 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="姓名"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/user_realname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="手机"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/user_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
+
+            <!-- 1.证件类型 -->
+
+
+            <!-- 2.证件号码 -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="所属门店"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/user_storename"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="驾驶证类型"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/user_card_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
+            <View
+                android:id="@+id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="驾驶证号码"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/user_card_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+                android:background="#dddddd" />
+        <!-- 第三排 -->
+
+
+        <!-- 第四排：登出 -->
+		<Button
+            android:id="@+id/user_loginout_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="38dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/register_btn_submit"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+ 
+    </LinearLayout>
+
+</LinearLayout>
