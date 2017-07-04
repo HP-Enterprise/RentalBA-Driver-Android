@@ -28,8 +28,7 @@
             android:textSize="14dp"
             android:textColor="#797979"
             android:layout_marginLeft="25dp"
-            android:singleLine="false"
-            android:visibility="gone"/>
+            android:singleLine="false"/>
 
     <LinearLayout
             android:layout_marginTop="15dp"

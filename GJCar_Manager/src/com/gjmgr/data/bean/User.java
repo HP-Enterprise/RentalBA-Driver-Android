@@ -2,6 +2,7 @@ package com.gjmgr.data.bean;
 
 public class User {
 
+	public String realName;//	
 	public String name;
 	public String phone;
 	public String storeName;

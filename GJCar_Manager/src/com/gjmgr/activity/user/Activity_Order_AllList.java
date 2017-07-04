@@ -188,7 +188,7 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 						break;
 					
 					case Request_Version:
-						
+						System.out.println("加载升级");
 						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
 							System.out.println("1aaaaaaaaaaaaaaaaa+");
 							ApkInfo apkInfo = (ApkInfo)msg.obj;
@@ -202,18 +202,19 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 							if(!(apkInfo.appAddress == null || apkInfo.appAddress.equals(""))){
 								System.out.println("5aaaaaaaaaaaaaaaaa+");
 								String[] str = apkInfo.appVersion.split("-");
+								Public_Param.Version_Content = apkInfo.updateContent;
+								
 								System.out.println("6aaaaaaaaaaaaaaaaa+"+str[0]);
 								System.out.println("7aaaaaaaaaaaaaaaaa手机版本+"+SystemUtils.getVersion(Activity_Order_AllList.this));
-								if(str[0].equals(SystemUtils.getVersion(Activity_Order_AllList.this))){System.out.println("8aaaaaaaaaaaaaaaaa+");
-									return;//如果版本相等就不下载
-								}
-								System.out.println("9aaaaaaaaaaaaaaaaa+");
-								if(str.length == 2){
-									System.out.println("10aaaaaaaaaaaaaaaaa+");
-									Public_Param.Version_Name = str[0];
-									update(Public_Api.appWebSite+apkInfo.appAddress,str[1], apkInfo.forceUpdate.intValue() == 0 ? false : true);System.out.println("下载地址"+Public_Api.appWebSite+apkInfo.appAddress);
-									System.out.println("aaaaaaaaaaaaaaaaaaaaa_apksize"+str[1]);
-								}
+								if(isUp(str[0], SystemUtils.getVersion(Activity_Order_AllList.this))){System.out.println("8aaaaaaaaaaaaaaaaa+");
+								
+									if(str.length == 2){
+										System.out.println("10aaaaaaaaaaaaaaaaa+");
+										Public_Param.Version_Name = str[0];
+										update(Public_Api.appWebSite+apkInfo.appAddress,str[1], apkInfo.forceUpdate.intValue() == 0 ? false : true);System.out.println("下载地址"+Public_Api.appWebSite+apkInfo.appAddress);
+										System.out.println("aaaaaaaaaaaaaaaaaaaaa_apksize"+str[1]);
+									}
+								}	
 								//update(Public_Api.appWebSite+apkInfo.appAddress, );System.out.println("下载地址"+Public_Api.appWebSite+apkInfo.appAddress);
 							}
 
@@ -313,5 +314,39 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 //	public void setOnTabChangedListener(OnTabChangedListener listener){
 //		this.listener = listener;
 //	}
-
+	public boolean isUp(String v_gjcar, String v_local){
+		
+		boolean isUp = false;
+		System.out.println(""+v_gjcar.substring(1, v_gjcar.length()));
+		String[] v_gjcars = v_gjcar.substring(1, v_gjcar.length()).split("\\.");System.out.println(""+v_gjcars.length);
+		
+		String[] v_locals = v_local.substring(1, v_local.length()).split("\\.");
+		
+		int g_1 = Integer.parseInt(v_gjcars[0]);
+		int g_2 = Integer.parseInt(v_gjcars[1]);
+		int g_3 = Integer.parseInt(v_gjcars[2]);
+		
+		int l_1 = Integer.parseInt(v_locals[0]);
+		int l_2 = Integer.parseInt(v_locals[1]);
+		int l_3 = Integer.parseInt(v_locals[2]);
+		
+		if(g_1 > l_1){
+			
+			isUp = true;
+		}else{
+			
+			if(g_1 == l_1 && g_2 > l_2){
+				
+				isUp = true;
+			}else{
+				
+				if(g_1 == l_1 && g_2 == l_2 && g_3 > l_3){
+					
+					isUp = true;
+				}
+			}
+		}
+		return isUp;
+		
+	}
 }

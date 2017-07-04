@@ -54,6 +54,13 @@ public class Public_Param {
 	public static int takecar_Melliage = 0;
 	public static Long returncar_date = 0l;
 	
+	public static String doortodoor_upaddress;//门到门详情
+	public static String doortodoor_downaddress;
+	
+	public static String doortodoor_typename;
+	public static Integer doortodoor_type;
+	public static String doortodoor_time;
+	
 	/*跳转*/
 	public static ViewPager viewPager;
 	public static boolean isReturnCarOK = false;

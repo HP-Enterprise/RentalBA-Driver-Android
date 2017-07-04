@@ -20,6 +20,7 @@ import com.gjmgr.data.data.Public_Param;
 import com.gjmgr.utils.HandlerHelper;
 import com.gjmgr.utils.HttpHelper;
 import com.gjmgr.utils.IntentHelper;
+import com.gjmgr.utils.StringHelper;
 import com.gjmgr.utils.TimeHelper;
 import com.gjmgr.utils.ToastHelper;
 import com.gjmgr.view.widget.SingleLineZoomTextView;
@@ -55,6 +56,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 	String[] modelIds;
 	String[] models;
 	int[] hasContacts;
+	int[] tripTypes;
 	//int[] downMilleages;
 	
 	int takecar_ordertype = 0;
@@ -64,13 +66,12 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		this.orderlist = orderlist;System.out.println("修改bug开始"+orderlist.size());
 		this.context = context;
 		
+		this.tripTypes = new int[orderlist.size()];
 		this.vendorIds = new String[orderlist.size()];
 		this.modelIds = new String[orderlist.size()];
 		this.models = new String[orderlist.size()];
 		this.hasContacts = new int[orderlist.size()];
 //		this.downMilleages = new int[orderlist.size()];
-		
-		initHandler();
 		
 		initHandler2();
 		
@@ -119,73 +120,73 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		holder.c_cancle = (TextView) convertView.findViewById(R.id.c_cancle);
 		holder.c_returncar = (TextView) convertView.findViewById(R.id.c_returncar);
 		
-		holder.c_getcar.setVisibility(View.VISIBLE);
-		holder.c_ok.setVisibility(View.VISIBLE);
-		holder.c_cancle.setVisibility(View.VISIBLE);
-		holder.c_returncar.setVisibility(View.VISIBLE);
-//		if (convertView == null) {
-//			holder = new Holder();
-//			convertView = View.inflate(context, R.layout.orderlist_item_doing_test, null);
-//			
-//			holder.a_lin  = (LinearLayout) convertView.findViewById(R.id.a_lin); 
-//			
-//			holder.a_order_ty  = (TextView) convertView.findViewById(R.id.a_order_ty);	System.out.println("a2");   
-//			holder.a_order_time  = (TextView) convertView.findViewById(R.id.a_order_time);	System.out.println("a3");
-//
-//			holder.a_orderId = (TextView) convertView.findViewById(R.id.a_orderId);	System.out.println("a4");
-//			holder.a_order_distance = (TextView) convertView.findViewById(R.id.a_order_distance);	System.out.println("a5");
-//			holder.b_air_message = (SingleLineZoomTextView) convertView.findViewById(R.id.b_air_message);	System.out.println("a6");
-//			holder.b_start_address = (TextView) convertView.findViewById(R.id.b_start_address);	System.out.println("a7");
-//			holder.b_car = (TextView) convertView.findViewById(R.id.b_car);	System.out.println("a8");
-//			holder.b_end_address = (TextView) convertView.findViewById(R.id.b_end_address);	System.out.println("a9");
-//
-//			holder.c_getcar = (TextView) convertView.findViewById(R.id.c_getcar);	
-//			holder.c_ok = (TextView) convertView.findViewById(R.id.c_ok);	
-//			holder.c_cancle = (TextView) convertView.findViewById(R.id.c_cancle);
-//			holder.c_returncar = (TextView) convertView.findViewById(R.id.c_returncar);
-//			
-//			holder.c_getcar.setVisibility(View.VISIBLE);
-//			holder.c_ok.setVisibility(View.VISIBLE);
-//			holder.c_cancle.setVisibility(View.VISIBLE);
-//			holder.c_returncar.setVisibility(View.VISIBLE);
-//			
-//			convertView.setTag(holder);
-//		} else {
-//			holder = (Holder) convertView.getTag();
-//		}
-		System.out.println("aaaaaaaaaaaaaaaaa5");
-		holder.a_order_ty.setText(orderlist.get(position).orderTypeName);System.out.println("a11");
-		
-		holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");System.out.println("a12");
-		//holder.a_order_distance.setText("预估里程："+orderlist.get(position).tripDistance+"公里"+"");System.out.println("a13");
-		//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
-//		holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
-		holder.b_car.setText(orderlist.get(position).modelName+"");System.out.println("a15");
-		holder.b_end_address.setText(orderlist.get(position).tripAddress+"");	System.out.println("a16");
-		
 		holder.c_getcar.setVisibility(View.GONE);
 		holder.c_ok.setVisibility(View.GONE);
 		holder.c_cancle.setVisibility(View.GONE);
 		holder.c_returncar.setVisibility(View.GONE);
-		System.out.println("修改bug:"+orderlist.get(position).orderCode);
-		System.out.println("修改bug-position:"+position);
-		reqest_Data(orderlist.get(position).orderType, orderlist.get(position).orderCode,position,
-				
-				holder.a_order_ty,holder.a_order_distance,holder.b_air_message,holder.a_order_time,holder.b_start_address,holder.b_end_address,orderlist.get(position).dispatchStatus,
-				
-				holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);		
-		
-		button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,
-				holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
-		//reqest_Data(orderlist.get(position).orderCode, position, holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar, orderlist.get(position).dispatchStatus);
-		System.out.println("aaaaaaaaaaaaaaaaa11");
-		//reqest_Contackt(orderlist.get(position).orderCode, holder.b_car);
+			
+		if(orderlist.get(position).orderType.intValue() == 2){//门到门
+			
+			//标题
+			holder.a_order_ty.setText("门到门-"+(orderlist.get(position).taskType.intValue() == 1 ? "送车" : "取车"));
+			holder.a_order_time.setText(""+TimeHelper.getTimemis_to_StringTime1(orderlist.get(position).expectStartTime));
+			
+			//订单编号
+			holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");
+			holder.a_order_distance.setVisibility(View.GONE);
+			
+			//机场信息			
+			holder.b_air_message.setVisibility(View.GONE);
+			
+			//地址
+			holder.b_start_address.setText((orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).callOutStoreName) : StringHelper.getString(orderlist.get(position).customerAddress));			
+			holder.b_car.setText(orderlist.get(position).modelName+"");
+			holder.b_end_address.setText((orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).customerAddress) : StringHelper.getString(orderlist.get(position).callOutStoreName));	
+			
+			//按钮
+			button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
+			
+		}else{//接送接和短租带驾
+			
+			holder.a_order_ty.setText(orderlist.get(position).orderTypeName);System.out.println("a11");
+			
+			holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");System.out.println("a12");
+			//holder.a_order_distance.setText("预估里程："+orderlist.get(position).tripDistance+"公里"+"");System.out.println("a13");
+			//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
+//			holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
+			holder.b_car.setText(orderlist.get(position).modelName+"");System.out.println("a15");
+			holder.b_end_address.setText(orderlist.get(position).tripAddress+"");	System.out.println("a16");
+			
+			System.out.println("修改bug:"+orderlist.get(position).orderCode);
+			System.out.println("修改bug-position:"+position);
+			reqest_Data(orderlist.get(position).orderType, orderlist.get(position).orderCode,position,
+					
+					holder.a_order_ty,holder.a_order_distance,holder.b_air_message,holder.a_order_time,holder.b_start_address,holder.b_end_address,orderlist.get(position).dispatchStatus,
+					
+					holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);		
+			
+			button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,
+					holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
+			//reqest_Data(orderlist.get(position).orderCode, position, holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar, orderlist.get(position).dispatchStatus);
+			System.out.println("aaaaaaaaaaaaaaaaa11");
+			//reqest_Contackt(orderlist.get(position).orderCode, holder.b_car);
+			
+		}
 			
 		holder.a_lin.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {System.out.println("xxxxxxxxxxxxxxxxxx");
 				
+				if(orderlist.get(position).orderType.intValue() == 2){//门到门
+					
+					Public_Param.doortodoor_upaddress = (orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).callOutStoreName) : StringHelper.getString(orderlist.get(position).customerAddress);						
+					Public_Param.doortodoor_downaddress = (orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).customerAddress) : StringHelper.getString(orderlist.get(position).callOutStoreName);
+					Public_Param.doortodoor_typename = "门到门-"+(orderlist.get(position).taskType.intValue() == 1 ? "送车" : "取车");	
+					Public_Param.doortodoor_type = orderlist.get(position).taskType;
+					Public_Param.doortodoor_time = orderlist.get(position).expectStartTime;
+				}
+			
 				Public_Param.orderdeaail_orderType = orderlist.get(position).orderType.intValue();
 				Public_Param.orderId_detail = orderlist.get(position).orderCode;
 				
@@ -243,6 +244,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 				isRequest = true;				
 				
 				String api = "";
+				
 				switch (orderlist.get(position).orderType) {
 					case 2://门到门
 						api = "api/door/"+orderlist.get(position).orderCode+"/contract";
@@ -317,44 +319,6 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		private TextView c_returncar;
 	}
 
-	private void initHandler() {
-
-		handler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-		
-				int position = msg.what;
-				
-				isRequest = false;
-				
-				if(msg.getData().getString("message").equals(HandlerHelper.Ok)){
-					
-					Order order = (Order)msg.obj;
-					
-					/*还未生成合同*/
-					if(order == null || order.hasContract.equals("0")){
-						
-						ToastHelper.showToastShort(context, "正在生成合同中,请稍等");
-						return;
-					}
-					
-					/*请求车辆id*/
-					isRequest = true;
-
-					String api = "api/airportTrip/"+orderlist.get(position).orderCode+"/contract";
-					
-					if(orderlist.get(position).dispatchOrigin.equals("1")){
-						api = "api/door/"+orderlist.get(position).orderCode+"/contract";
-					}
-					
-					new HttpHelper().initData(HttpHelper.Method_Get, context, api, null, null, contractHandler, position, 1, new TypeReference<Order>() {});		
-					
-				}
-								
-			}
-		};
-	}
 		
 	private void initHandler2() {
 		
@@ -377,13 +341,12 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 						return;
 					}
 					
-					IntentHelper.startActivity_StringExtras(context, Activity_UpCar.class, new String[]{"from","dispatchOrigin"}, new String[]{"up",orderlist.get(position).dispatchOrigin});
-
 					Public_Param.order_up.id = orderlist.get(position).id;
 					Public_Param.order_up.driverId = orderlist.get(position).driverId;
 					Public_Param.order_up.orderCode = orderlist.get(position).orderCode;
 					Public_Param.order_up.vehicleId = order.vehicleId;
 					Public_Param.order_up.takeCarMileage =  order.takeCarMileage;					
+					Public_Param.order_up.triptype = tripTypes[position];System.out.println("上车"+Public_Param.order_up.triptype);
 					
 					switch (takecar_ordertype) {
 						case 2://门到门
@@ -403,7 +366,9 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 						default:
 							break;
 					}
-										
+					
+					IntentHelper.startActivity_StringExtras(context, Activity_UpCar.class, new String[]{"from","dispatchOrigin"}, new String[]{"up",orderlist.get(position).dispatchOrigin});
+
 					return;
 				}
 				
@@ -452,7 +417,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			
 			final TextView c_ok,final TextView c_cancle,final TextView c_getcar,final TextView c_returncar) {
 		System.out.println("发送请求"+orderId);
-		String api = "";
+		String api = "";System.out.println("req_2_orderType"+orderType);
 		switch (orderType) {
 			case 3://代驾
 				api = "api/driver/"+orderId+"/order";
@@ -470,7 +435,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 
 		RequestParams params = new RequestParams();// 设置请求参数
 
-		String url = Public_Api.appWebSite + api;
+		final String url = Public_Api.appWebSite + api;
 		
 		httpClient.get(url, params, new AsyncHttpResponseHandler() {
 
@@ -479,17 +444,18 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 
 				String backData = new String(arg2);
-				System.out.println("返回值\n:" + backData);
+				System.out.println("req_2_开始");
+				System.out.println("req_2_url"+url);
+				System.out.println("req_2_返回值"+backData);
+				JSONObject statusjobject = JSON.parseObject(backData);System.out.println("req_2_a1_0");
 
-				JSONObject statusjobject = JSON.parseObject(backData);
-
-				boolean status = statusjobject.getBoolean("status");
-				String message = statusjobject.getString("message");
+				boolean status = statusjobject.getBoolean("status");System.out.println("req_2_a1_1");
+				String message = statusjobject.getString("message");System.out.println("req_2_a1_2");
 
 				if (status) {
 					/*订单信息*/
 					JSONObject j1 = JSON.parseObject(message);
-					
+					System.out.println("req_2_a1");
 					if(orderType == 4){
 						
 						String airlineCompany = j1.getString("airlineCompany");
@@ -503,12 +469,13 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 						JSONObject j_trans = JSON.parseObject(transferPointShow);
 						String pointName = j_trans.getString("pointName");
 					
+						tripTypes[index] = (tripType == null ? 0 : tripType.intValue());
 						tv_triptype.setText(tripType == null ? "" : new String[]{"接机","送机","接火车站","送火车站"}[tripType.intValue()-1]);			
 						date.setText(""+TimeHelper.getTimemis_to_StringTime1(takeCarDate));//TimeHelper.getTimemis_to_StringTime(order.takeCarDate.toString())
 						tv_message.setVisibility(View.VISIBLE);
 						tv_message.setText("航班信息："+airlineCompany+"/"+flightNumber);
 						
-						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");
+						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");System.out.println("req_2_a1_1");
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
 
@@ -537,7 +504,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
 						b_end_address.setText(""+returnCarAddress);
-						b_start_address.setText(""+takeCarAddress);
+						b_start_address.setText(""+takeCarAddress);System.out.println("req_2_a1_2");
 					}
 					
 					/*状态*/
@@ -561,55 +528,9 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 					System.out.println("dispath:"+hasContract);
 					
 					return;//不用这个判断按钮状态
-					
-//					if(hasContract == 0){
-//						
-//						c_ok.setVisibility(View.GONE);
-//						c_cancle.setVisibility(View.GONE);
-//						c_getcar.setVisibility(View.VISIBLE);
-//						c_returncar.setVisibility(View.GONE);
-//						
-//						return;
-//					}
-//					System.out.println("修改bug-"+hasContract+"-"+orderState);
-//					System.out.println("修改bug状态"+dispath);
-//					if(hasContract == 1 && orderState == 2){
-//						
-//						c_ok.setVisibility(View.GONE);
-//						c_cancle.setVisibility(View.GONE);
-//						c_getcar.setVisibility(View.VISIBLE);
-//						c_returncar.setVisibility(View.GONE);
-//					}else{
-//						if(hasContract == 1 && orderState == 5){
-//							
-//							c_ok.setVisibility(View.GONE);
-//							c_cancle.setVisibility(View.GONE);
-//							c_getcar.setVisibility(View.GONE);
-//							c_returncar.setVisibility(View.VISIBLE);
-//						}else{
-//							
-//							if(dispath.equals("30")){
-//								
-//								c_ok.setVisibility(View.VISIBLE);
-//								c_cancle.setVisibility(View.GONE);
-//								c_getcar.setVisibility(View.GONE);
-//								c_returncar.setVisibility(View.GONE);
-//							}else{
-//								
-//								if(dispath.equals("35")){
-//									c_ok.setVisibility(View.GONE);
-//									c_cancle.setVisibility(View.VISIBLE);
-//									c_getcar.setVisibility(View.GONE);
-//									c_returncar.setVisibility(View.GONE);
-//								}
-//								
-//							}
-//							
-//						}
-//	
-//					}
+
 				}
-				
+				System.out.println("req_2_结束");
 			}
 
 			/* 5.处理请求失败 */
@@ -748,6 +669,11 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		
 		String api = "";
 		switch (orderType) {
+		
+			case 2://门到门			
+				api = "api/door/"+orderId+"/contract";			
+				break;
+			
 			case 3://代驾
 				api = "api/contract/"+orderId+"/contractDetail";
 				break;
@@ -771,50 +697,90 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			/* 处理请求成功 */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-
+				System.out.println("req_2_status_开始");
 				String backData = new String(arg2);
-				System.out.println("请求处理成功:" + backData);
-
-				JSONObject statusjobject = JSON.parseObject(backData);
+//				System.out.println("请求处理成功:" + backData);
+				System.out.println("req_2_status_a0");
+				JSONObject statusjobject = JSON.parseObject(backData);System.out.println("req_2_status_a1");
 
 				boolean status = statusjobject.getBoolean("status");
 				String message = statusjobject.getString("message");
 
 				if (status) {
-					
-					JSONObject j = JSON.parseObject(message);
-					int orderState = j.getIntValue("orderState");
-					
+									
 					c_getcar.setVisibility(View.GONE);
 					c_ok.setVisibility(View.GONE);
 					c_cancle.setVisibility(View.GONE);
 					c_returncar.setVisibility(View.GONE);
 					
-					switch (orderState) {
-						case 2:
-							c_getcar.setVisibility(View.VISIBLE);
-							break;
+					if(orderType == 2){//门到门
 						
-						case 3:
-							c_ok.setVisibility(View.VISIBLE);						
-							break;
-													
-						case 4:
-							c_cancle.setVisibility(View.VISIBLE);		
-							break;
+						if(StringHelper.isStringNull(message)){//没有生成生成合同
+							//订单状态（0：待支付，1：下单待调度 2:已调度 3:司机取车(门店) 4:客户已取车 5:客户已还车 6:还车待调度 7:司机取车(客户) 8:司机还车 9:取消订单 10:订单完成 )
+							c_ok.setVisibility(View.VISIBLE);	
+							c_ok.setText("提车");
+						}else{
+							JSONObject j = JSON.parseObject(message);System.out.println("req_2_status_a3");
+							int orderState = j.getIntValue("orderState");
 							
-						case 5:
-							c_returncar.setVisibility(View.VISIBLE);		
-							break;
-						default:
-							break;
+							switch (orderState) {
+								case 2:
+									c_ok.setVisibility(View.VISIBLE);
+									c_ok.setText("提车");
+									break;
+								
+								case 3:
+									c_cancle.setVisibility(View.VISIBLE);		
+									c_cancle.setText("送车");
+									break;
+															
+								case 6:
+									c_ok.setVisibility(View.VISIBLE);
+									c_ok.setText("取车");
+									break;
+									
+								case 7:
+									c_cancle.setVisibility(View.VISIBLE);	
+									c_cancle.setText("还车");
+									break;
+								default:
+									break;
+							}
+							
+						}
+						
+					}else{//接送接和带驾
+						
+						JSONObject j = JSON.parseObject(message);System.out.println("req_2_status_a3");
+						int orderState = j.getIntValue("orderState");System.out.println("req_2_status_a4");
+							
+						switch (orderState) {
+							case 2:
+								c_getcar.setVisibility(View.VISIBLE);
+								break;
+							
+							case 3:
+								c_ok.setVisibility(View.VISIBLE);						
+								break;
+														
+							case 4:
+								c_cancle.setVisibility(View.VISIBLE);		
+								break;
+								
+							case 5:
+								c_returncar.setVisibility(View.VISIBLE);		
+								break;
+							default:
+								break;
+						}
 					}
+					
 					
 				}else{
 					
 					c_getcar.setVisibility(View.VISIBLE);
 				}
-				
+				System.out.println("req_2_status_结束");
 			}
 
 			/* 5.处理请求失败 */
@@ -831,5 +797,70 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		this.orderlist = orderlist;
 		
 		this.notifyDataSetChanged();
+	}
+	
+	private void getcar_doortodoor(final String orderId){
+		
+		String api = "api/door/"+orderId+"/contract";	
+		
+		/* 向服务器登陆 */
+		AsyncHttpClient httpClient = new AsyncHttpClient();
+
+		RequestParams params = new RequestParams();// 设置请求参数
+
+		String url = Public_Api.appWebSite + api;
+		
+		httpClient.get(url, params, new AsyncHttpResponseHandler() {
+
+			/* 处理请求成功 */
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				System.out.println("req_2_status_开始");
+				String backData = new String(arg2);
+//				System.out.println("请求处理成功:" + backData);
+				System.out.println("req_2_status_a0");
+				JSONObject statusjobject = JSON.parseObject(backData);System.out.println("req_2_status_a1");
+
+				boolean status = statusjobject.getBoolean("status");
+				String message = statusjobject.getString("message");
+
+				if (status) {
+
+					if(StringHelper.isStringNull(message)){//没有生成生成合同
+						//订单状态（0：待支付，1：下单待调度 2:已调度 3:司机取车(门店) 4:客户已取车 5:客户已还车 6:还车待调度 7:司机取车(客户) 8:司机还车 9:取消订单 10:订单完成 )
+						ToastHelper.showToastShort(context, "生成合同后才能执行此操作");
+					}else{
+						
+						Order order = JSON.parseObject(message, new TypeReference<Order>() {});
+						
+						if(order == null || order.vehicleId == null || order.vehicleId.equals("null") || order.vehicleId.equals("")){
+							
+							ToastHelper.showToastShort(context, "提车后才能执行此操作");						
+							return;
+						}
+						
+						Public_Param.order_up.id = order.id;
+						Public_Param.order_up.driverId = order.driverId;
+						Public_Param.order_up.orderCode = order.orderCode;
+						Public_Param.order_up.vehicleId = order.vehicleId;
+						Public_Param.order_up.takeCarMileage =  order.takeCarMileage;					
+					
+						IntentHelper.startActivity_StringExtras(context, Activity_UpCar.class, new String[]{"from","dispatchOrigin"}, new String[]{"up",order.dispatchOrigin});
+
+					}
+					
+				}else{
+
+				}
+				System.out.println("req_2_status_结束");
+			}
+
+			/* 5.处理请求失败 */
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+
+			}
+		});
 	}
 }

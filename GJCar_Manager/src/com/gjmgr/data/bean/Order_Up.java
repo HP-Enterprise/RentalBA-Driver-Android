@@ -11,4 +11,6 @@ public class Order_Up{
 	
 	public Integer takeCarMileage = 0;//取车里程
 	public Long takeCarActualDate;//实际取车时间
+	
+	public int triptype;//实际取车时间
 } 

@@ -114,49 +114,56 @@ public class OrderList_Adapter extends BaseAdapter {
 		holder.c_cancle = (TextView) convertView.findViewById(R.id.c_cancle);	
 						
 		convertView.setTag(holder);
-//		if (convertView == null) {System.out.println("a1");
-//			holder = new Holder();
-//			convertView = View.inflate(context, R.layout.orderlist_item_test, null);
-//			
-//			holder.a_lin  = (LinearLayout) convertView.findViewById(R.id.a_lin); 
-//			
-//			holder.a_order_ty  = (TextView) convertView.findViewById(R.id.a_order_ty);	System.out.println("a2");   
-//			holder.a_order_time  = (TextView) convertView.findViewById(R.id.a_order_time);	System.out.println("a3");
-//
-//			holder.a_orderId = (TextView) convertView.findViewById(R.id.a_orderId);	System.out.println("a4");
-//			holder.a_order_distance = (TextView) convertView.findViewById(R.id.a_order_distance);	System.out.println("a5");
-//			holder.b_air_message = (SingleLineZoomTextView) convertView.findViewById(R.id.b_air_message);	System.out.println("a6");
-//			holder.b_start_address = (TextView) convertView.findViewById(R.id.b_start_address);	System.out.println("a7");
-//			holder.b_car = (TextView) convertView.findViewById(R.id.b_car);	System.out.println("a8");
-//			holder.b_end_address = (TextView) convertView.findViewById(R.id.b_end_address);	System.out.println("a9");
-//
-//			holder.c_ok = (TextView) convertView.findViewById(R.id.c_ok);	
-//			holder.c_cancle = (TextView) convertView.findViewById(R.id.c_cancle);	
-//							
-//			convertView.setTag(holder);
-//		} else {System.out.println("a111");
-//			holder = (Holder) convertView.getTag();
-//		}
-	
-		holder.a_order_ty.setText(orderlist.get(position).orderTypeName);System.out.println("a11");//1接机 2送机 3接火车站 4 送火车站
-		//holder.a_order_time.setText(orderlist.get(position).);//TimeHelper.getTimemis_to_StringTime(order.takeCarDate.toString())
 		
-		holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");System.out.println("a12");
-		//holder.a_order_distance.setText("预估里程："+orderlist.get(position).tripDistance+"公里"+"");System.out.println("a13");
-		//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
-//		holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
-		holder.b_car.setText(orderlist.get(position).modelName+"");System.out.println("a15");
-		//holder.b_end_address.setText(orderlist.get(position).tripAddress+"");	System.out.println("a16");
-		
-		reqest_Data(orderlist.get(position).orderType.intValue(),orderlist.get(position).orderCode,position,
-				
-				holder.a_order_ty,holder.a_order_distance,holder.b_air_message,holder.a_order_time,holder.b_start_address,holder.b_end_address);
+		if(orderlist.get(position).orderType.intValue() == 2){//门到门
+			
+			//标题
+			holder.a_order_ty.setText("门到门-"+(orderlist.get(position).taskType.intValue() == 1 ? "送车" : "取车"));
+			holder.a_order_time.setText(""+TimeHelper.getTimemis_to_StringTime1(orderlist.get(position).expectStartTime));
+			
+			//订单编号
+			holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");
+			holder.a_order_distance.setVisibility(View.GONE);
+			
+			//机场信息			
+			holder.b_air_message.setVisibility(View.GONE);
+
+			//地址
+			holder.b_start_address.setText((orderlist.get(position).taskType.intValue() == 1) ? orderlist.get(position).callOutStoreName+"" : StringHelper.getString(orderlist.get(position).customerAddress));			
+			holder.b_car.setText(orderlist.get(position).modelName+"");
+			holder.b_end_address.setText((orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).customerAddress) : orderlist.get(position).callOutStoreName+"");	
+			
+		}else{//接送接和短租带驾
+			
+			holder.a_order_ty.setText(orderlist.get(position).orderTypeName);System.out.println("a11");//1接机 2送机 3接火车站 4 送火车站
+			//holder.a_order_time.setText(orderlist.get(position).);//TimeHelper.getTimemis_to_StringTime(order.takeCarDate.toString())
+			
+			holder.a_orderId.setText("订单编号："+orderlist.get(position).orderCode+"");System.out.println("a12");
+			//holder.a_order_distance.setText("预估里程："+orderlist.get(position).tripDistance+"公里"+"");System.out.println("a13");
+			//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
+//			holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
+			holder.b_car.setText(orderlist.get(position).modelName+"");System.out.println("a15");
+			//holder.b_end_address.setText(orderlist.get(position).tripAddress+"");	System.out.println("a16");
+			
+			reqest_Data(orderlist.get(position).orderType.intValue(),orderlist.get(position).orderCode,position,
+					
+					holder.a_order_ty,holder.a_order_distance,holder.b_air_message,holder.a_order_time,holder.b_start_address,holder.b_end_address);
+			
+		}
 		
 		holder.a_lin.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {System.out.println("xxxxxxxxxxxxxxxxxx");
 	
+				if(orderlist.get(position).orderType.intValue() == 2){//门到门
+						
+						Public_Param.doortodoor_upaddress = (orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).callOutStoreName) : StringHelper.getString(orderlist.get(position).customerAddress);						
+						Public_Param.doortodoor_downaddress = (orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).customerAddress) : StringHelper.getString(orderlist.get(position).callOutStoreName);
+						Public_Param.doortodoor_typename = "门到门-"+(orderlist.get(position).taskType.intValue() == 1 ? "送车" : "取车");	
+						Public_Param.doortodoor_type = orderlist.get(position).taskType;
+						Public_Param.doortodoor_time = orderlist.get(position).expectStartTime;
+				}
 				Public_Param.orderdeaail_orderType = orderlist.get(position).orderType.intValue();
 				Public_Param.orderId_detail = orderlist.get(position).orderCode;
 				IntentHelper.startActivity(context, Activity_Order_Detail.class);
@@ -177,7 +184,7 @@ public class OrderList_Adapter extends BaseAdapter {
 				Request_Submit(true,orderlist.get(position).id.intValue(), driverId, "", Public_Api.api_task_confirm);
 			}
 		});
-		
+				
 		holder.c_cancle.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -220,7 +227,11 @@ public class OrderList_Adapter extends BaseAdapter {
 		System.out.println("发送请求"+orderId);
 		
 		String api = "";
-		switch (orderType) {
+		switch (orderType) {//
+			case 2://门到门：http://182.61.22.80/api/door/1025367/order
+				api = "api/door/"+orderId+"/order";System.out.println("订单api"+api);
+				break;
+				
 			case 3://代驾
 				api = "api/driver/"+orderId+"/order";System.out.println("订单api"+api);
 				break;
@@ -244,21 +255,21 @@ public class OrderList_Adapter extends BaseAdapter {
 			/* 处理请求成功 */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-
+							
 				String backData = new String(arg2);
-				System.out.println("返回值\n:" + backData);
-
+				System.out.println("req_1_开始");
+							
 				JSONObject statusjobject = JSON.parseObject(backData);
-
+						
 				boolean status = statusjobject.getBoolean("status");
 				String message = statusjobject.getString("message");
-
+						
 				if (status) {
-
+					System.out.println("req_1_a1");
 					JSONObject j = JSON.parseObject(message);
 					//int tripType = j.getIntValue("tripType");
 					if(orderType == 4){
-						
+								
 						String airlineCompany = j.getString("airlineCompany");
 						String flightNumber = j.getString("flightNumber");
 						Integer tripType = j.getInteger("tripType");
@@ -275,7 +286,7 @@ public class OrderList_Adapter extends BaseAdapter {
 						tv_message.setVisibility(View.VISIBLE);
 						tv_message.setText("航班信息："+airlineCompany+"/"+flightNumber);
 						
-						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");
+						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");System.out.println("req_1_a2_a");
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
 						if(tripType.intValue() == 2 || tripType.intValue() == 4){
@@ -304,10 +315,10 @@ public class OrderList_Adapter extends BaseAdapter {
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));						
 						b_start_address.setText(""+takeCarAddress);
-						b_end_address.setText(""+returnCarAddress);
+						b_end_address.setText(""+returnCarAddress);System.out.println("req_1_a2_b");
 					}
 				}
-				
+				System.out.println("req_1_结束");
 			}
 
 			/* 5.处理请求失败 */

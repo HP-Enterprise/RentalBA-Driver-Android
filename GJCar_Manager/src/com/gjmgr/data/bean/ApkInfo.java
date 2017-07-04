@@ -12,5 +12,5 @@ public class ApkInfo {
 	public String createUser;
 	public String isEnable;
 	public Integer forceUpdate;//0:否1：强制
-	
+	public String updateContent;//更新内容
 }

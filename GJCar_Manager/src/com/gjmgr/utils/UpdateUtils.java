@@ -298,7 +298,7 @@ public class UpdateUtils{
 		TextView title = (TextView)view.findViewById(R.id.dialog_update_title);
 		title.setText("版本更新:"+Public_Param.Version_Name);//软件版本从服务器获取，不从apk中获取(apk还没下载下来)
 		TextView content = (TextView)view.findViewById(R.id.dialog_update_content);
-		content.setText(Public_Param.Version_Content);
+		content.setText(StringHelper.getString(Public_Param.Version_Content));
 		Button ok = (Button)view.findViewById(R.id.dialog_update_confirm_button);
 		Button cancle = (Button)view.findViewById(R.id.dialog_update_cancel_button);
 		ok.setOnClickListener(new View.OnClickListener() {

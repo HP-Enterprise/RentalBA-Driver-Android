@@ -12,6 +12,7 @@ import com.gjmgr.utils.AnnotationViewUtils;
 import com.gjmgr.utils.HandlerHelper;
 import com.gjmgr.utils.HttpHelper;
 import com.gjmgr.utils.ImageLoaderHelper;
+import com.gjmgr.utils.StringHelper;
 import com.gjmgr.utils.TimeHelper;
 import com.gjmgr.view.helper.LoadAnimateHelper;
 import com.gjmgr.view.helper.TitleBarHelper;
@@ -54,9 +55,14 @@ public class Activity_Order_Detail extends Activity{
 	@ContentWidget(id = R.id.e_2) TextView e_2;
 	
 	@ContentWidget(id = R.id.d_up_address_lin) LinearLayout d_up_address_lin;
+	@ContentWidget(id = R.id.d_up_address_static) TextView d_up_address_static;
 	@ContentWidget(id = R.id.d_up_address) TextView d_up_address;
 	@ContentWidget(id = R.id.d_up_address_line) View d_up_address_line;
 	@ContentWidget(id = R.id.tv_address_name) TextView tv_address_name;
+	
+	@ContentWidget(id = R.id.d_order_describe_lin) LinearLayout d_order_describe_lin;//订单描述
+	@ContentWidget(id = R.id.d_order_describe_param) TextView d_order_describe_param;
+	@ContentWidget(id = R.id.d_order_describe_line) View d_order_describe_line;
 	
 	@ContentWidget(id = R.id.d_2_lin) LinearLayout d_2_lin;
 	@ContentWidget(id = R.id.d_3_lin) LinearLayout d_3_lin;
@@ -82,7 +88,7 @@ public class Activity_Order_Detail extends Activity{
 		TitleBarHelper.Back(this, "订单详情", 0);
 		
 		/*加载动画*/
-		LoadAnimateHelper.Search_Animate(this, R.id.activity, handler, 0, false,true,1);
+		//LoadAnimateHelper.Search_Animate(this, R.id.activity, handler, 0, false,true,1);
 		
 		/*请求费用*/
 		Request_AmountDetail();
@@ -100,7 +106,13 @@ public class Activity_Order_Detail extends Activity{
 	private void Request_AmountDetail() {
 
 		String api = "";
+		
 		switch (Public_Param.orderdeaail_orderType) {
+		
+			case 2://门到门：http://182.61.22.80/api/door/1025367/order
+				api = "api/door/"+Public_Param.orderId_detail+"/order";System.out.println("订单api"+api);
+				break;
+			
 			case 3://代驾
 				api = "api/driver/"+Public_Param.orderId_detail+"/order";
 				break;
@@ -116,6 +128,107 @@ public class Activity_Order_Detail extends Activity{
 		
 	}
 
+	private void initHandler() {
+
+		handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+
+				switch (msg.what) {
+
+					
+					case Request_Data:
+						
+						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
+							
+							//LoadAnimateHelper.load_success_animation();	
+							Order_Detail order = (Order_Detail)msg.obj;
+							
+							switch (Public_Param.orderdeaail_orderType) {
+							
+								case 2://门到门：http://182.61.22.80/api/door/1025367/order
+									init_door(order);
+									break;
+								
+								case 3://代驾
+									init_driver(order);
+									break;
+						
+								case 4://接送机
+									init(order);
+									break;
+								default:
+									break;
+							}
+	
+				           	return;
+						}else{
+							
+							//LoadAnimateHelper.load_fail_animation();
+						}					
+						break;
+
+					default:
+						break;
+				}
+			}
+		};
+	}
+	
+	private void init_door(Order_Detail order){
+		
+		ImageLoaderHelper.initImageLoader(this);
+		ImageLoader.getInstance().displayImage(Public_Api.appWebSite + order.vehicleModelShow.picture , b_1, ImageLoaderHelper.initDisplayImageOptions());	
+		
+		d_2_lin.setVisibility(View.GONE);
+		d_3_lin.setVisibility(View.GONE);
+		d_4_lin.setVisibility(View.GONE);
+		d_2_line.setVisibility(View.GONE);
+		d_3_line.setVisibility(View.GONE);
+		d_4_line.setVisibility(View.GONE);
+		
+		/*上下车地址从前面带入*/
+		tv_address_name.setText("送车地址");
+		d_up_address_static.setText("取车地址");
+		d_up_address.setText(Public_Param.doortodoor_upaddress);
+		d_6.setText(Public_Param.doortodoor_downaddress);
+		
+		/*控件*/
+		TextView[] textViews = new TextView[]{
+				
+				a_1,a_2, 
+				b_2,b_3,
+				c_1, c_2,c_3,
+				d_1,d_5,
+				
+				d_7,
+				
+				e_1,e_2
+		};
+		String carTrunk = order.vehicleModelShow.carTrunk == null ? "" : order.vehicleModelShow.carTrunk;
+		
+		/*数据*/
+		String[] datas = new String[]{
+				
+				order.orderId,Public_Param.doortodoor_typename,
+				
+				order.vehicleModelShow.model,carTrunk+"厢/"+order.vehicleModelShow.seats+"座",
+				
+				order.userShow.realName,order.userShow.phone,  "",//行程备注不填
+							
+				Public_Param.doortodoor_type.intValue() == 1 ? order.takeCarCityName : order.returnCarAddress,TimeHelper.getTimemis_to_StringTime(Public_Param.doortodoor_time),
+				
+				order.outsideDistance == null ? "0公里" : order.outsideDistance+"公里",
+			
+				"接送机单次收费","￥"
+		};
+				
+		/*添加*/
+		ViewInitHelper.initTextViews(textViews, datas);
+		
+	}
+	
 	private void init(Order_Detail order){
 		
 		ImageLoaderHelper.initImageLoader(this);
@@ -165,6 +278,11 @@ public class Activity_Order_Detail extends Activity{
 		/*添加*/
 		ViewInitHelper.initTextViews(textViews, datas);
 		
+		
+		/*订单描述*/
+		d_order_describe_line.setVisibility(View.VISIBLE);
+		d_order_describe_lin.setVisibility(View.VISIBLE);
+		d_order_describe_param.setText(StringHelper.getString(order.airDescribe));
 	}
 	
 	private void init_driver(Order_Detail order){
@@ -215,41 +333,5 @@ public class Activity_Order_Detail extends Activity{
 		ViewInitHelper.initTextViews(textViews, datas);
 		
 	}
-	private void initHandler() {
-
-		handler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-
-				switch (msg.what) {
-
-					
-					case Request_Data:
-						
-						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
-							
-							LoadAnimateHelper.load_success_animation();	
-							Order_Detail order = (Order_Detail)msg.obj;
-							if(Public_Param.orderdeaail_orderType == 3){
-								init_driver(order);
-							}else{
-								init(order);
-							}
-							
-				           	return;
-						}else{
-							
-							LoadAnimateHelper.load_fail_animation();
-						}					
-						break;
-
-					default:
-						break;
-				}
-			}
-		};
-	}
-
-
+	
 }

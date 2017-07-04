@@ -56,6 +56,7 @@ public class Activity_UpCar extends Activity{
 	@ContentWidget(id = R.id.lin_address) LinearLayout lin_address;//下车地址
 	@ContentWidget(id = R.id.address) EditText address;
 	@ContentWidget(click = "onClick")  LinearLayout lin_location;
+	@ContentWidget(id = R.id.tv_up_down) TextView tv_up_down;
 	
 	/*参数*/
 	private String from = "up";
@@ -82,14 +83,21 @@ public class Activity_UpCar extends Activity{
 		/*标题*/
 		if(dispatchOrigin.equals("1")){
 			
-			TitleBarHelper.Back(this, from.equals("up")?"取车回录单":"送车回录单", 0);
+			TitleBarHelper.Back(this, from.equals("up")?"上车回录单":"下车回录单", 0);
 		}else{
 			
 			TitleBarHelper.Back(this, from.equals("up")?"上车回录单":"下车回录单", 0);
+			System.out.println("a上车"+Public_Param.order_up.triptype);
+//			if(!(from.equals("up"))){//!(from.equals("up")&&Public_Param.order_up.triptype != 2)
+//				
+//				lin_address.setVisibility(View.VISIBLE);
+//				new BaiduMapHelper().startLocationClient(this, handler, Baidu_Location_Address);
+//			}
 			
-			if(!from.equals("up")){lin_address.setVisibility(View.VISIBLE);}
-			
+			tv_up_down.setText(from.equals("up")?"上车地址":"下车地址");
+			lin_address.setVisibility(View.VISIBLE);
 			new BaiduMapHelper().startLocationClient(this, handler, Baidu_Location_Address);
+			
 		}
 
 		/*视图*/
@@ -292,12 +300,25 @@ public class Activity_UpCar extends Activity{
 								address.setText(""+loc.address);
 							}else{
 								
-								address.setHint("请输入乘客下车地址");
+								if(from.equals("up")){
+									
+									address.setHint("请输入乘客上车地址");
+								}else{
+									
+									address.setHint("请输入乘客下车地址");
+								}
+								
 							}
 				           	return;
 						}else{
 							
-							address.setHint("请输入乘客下车地址");
+							if(from.equals("up")){
+								
+								address.setHint("请输入乘客上车地址");
+							}else{
+								
+								address.setHint("请输入乘客下车地址");
+							}
 						}
 						
 						break;
@@ -350,11 +371,18 @@ public class Activity_UpCar extends Activity{
 			jsonObject.put("driverId", Public_Param.order_up.driverId);//调度司机id
 			jsonObject.put("vehicleId",  Public_Param.order_up.vehicleId);Public_Flag.flag(true);//调度车辆id
 			jsonObject.put("realStartTime",  Long.parseLong(TimeHelper.getSearchTime_Mis(time.getText().toString())));//上车时间
-//			jsonObject.put("getOnFuel",  oil.getText().toString());//上车油量
-//			jsonObject.put("getOnMileage", distance.getText().toString());//上车里程
-			System.out.println("vehicleId-------------------"+vehicleId);
+			
 			api = "api/dispatch/task-doing?getOnFuel="+oil.getText().toString()+"&getOnMileage="+distance.getText().toString();
 			
+//			if(Public_Param.order_up.triptype == 2){
+//				
+//				api = "api/dispatch/task-doing?onAddress="+address.getText().toString()+"&getOnFuel="+oil.getText().toString()+"&getOnMileage="+distance.getText().toString();
+//			
+//			}
+			api = "api/dispatch/task-doing?onAddress="+address.getText().toString()+"&getOnFuel="+oil.getText().toString()+"&getOnMileage="+distance.getText().toString();
+			
+			System.out.println("vehicleId-------------------"+vehicleId);
+			System.out.println("myapi-------------------"+api);
 		}else{
 			System.out.println("xxxxxxxxxxxxxx6");
 			jsonObject.put("id", Public_Param.order_down.id);//调度任务id

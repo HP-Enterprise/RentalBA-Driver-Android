@@ -211,7 +211,7 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 
 				String backData = new String(arg2);
-				System.out.println("返回值\n:" + backData);
+				System.out.println("req_3_开始");
 
 				JSONObject statusjobject = JSON.parseObject(backData);
 
@@ -221,7 +221,7 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 				if (status) {
 					
 					JSONObject j1 = JSON.parseObject(message);
-					
+					System.out.println("req_3_a1");
 					if(orderType == 4){
 						
 						String airlineCompany = j1.getString("airlineCompany");
@@ -241,7 +241,7 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 						tv_message.setVisibility(View.VISIBLE);
 						tv_message.setText("航班信息："+airlineCompany+"/"+flightNumber);
 						
-						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");
+						distance.setText("预估里程："+tripDistance+"公里");System.out.println("a13");System.out.println("req_3_a1_1");
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));	
 						
@@ -270,11 +270,11 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 						//holder.b_air_message.setText("航班信息："+orderlist.get(position).airport+"+"+orderlist.get(position).flightNumber);	System.out.println("a14");
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
 						b_end_address.setText(clientActualDebusAddress == null ? ""+returnCarAddress : clientActualDebusAddress);
-						b_start_address.setText(""+takeCarAddress);
+						b_start_address.setText(""+takeCarAddress);System.out.println("abok"+index);System.out.println("req_3_a1_2");
 					}
 				
 				}
-				
+				System.out.println("req_3_结束");
 			}
 
 			/* 5.处理请求失败 */

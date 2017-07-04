@@ -602,6 +602,7 @@
                             android:paddingRight="16dp" >
 
                             <TextView
+                                android:id="@+id/d_up_address_static"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="8dp"
@@ -723,6 +724,58 @@
                                 android:textColor="@color/page_text_normal1"
                                 android:textSize="14dp" />
                         </LinearLayout>
+                        
+                        
+                        <!-- 描述 -->
+                        <View
+                            android:id="@+id/d_order_describe_line"
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@color/page_line1"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:id="@+id/d_order_describe_lin"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="22dp"
+                            android:paddingRight="16dp" 
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="8dp"
+                                android:gravity="center_vertical"
+                                android:text="订单描述"
+                                android:textColor="@color/page_text_normal2"
+                                android:textSize="14dp" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="fill_parent"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginTop="8dp"
+                                android:background="#D6D6D6" />
+
+                            <TextView
+                                android:id="@+id/d_order_describe_param"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingBottom="6dp"
+                                android:paddingLeft="12dp"
+                                android:paddingTop="6dp"
+                                android:text=""
+                                android:textColor="@color/page_text_normal1"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+                        <!-- 订单描述 -->
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

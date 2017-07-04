@@ -16,6 +16,7 @@ import com.gjmgr.data.data.Public_Param;
 import com.gjmgr.data.data.Public_SP;
 import com.gjmgr.utils.AnnotationViewUtils;
 import com.gjmgr.utils.SharedPreferenceHelper;
+import com.gjmgr.utils.SystemUtils;
 import com.gjmgr.view.helper.TitleBarHelper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -41,6 +42,7 @@ public class Activity_User extends Activity{
 	@ContentWidget(id = R.id.user_storename) TextView user_storename;
 	@ContentWidget(id = R.id.user_card_type) TextView user_card_type;
 	@ContentWidget(id = R.id.user_card_number) TextView user_card_number;
+	@ContentWidget(id = R.id.version_code) TextView version_code;
 	@ContentWidget(click = "onClick") Button user_loginout_btn;
 	
 	@Override
@@ -54,6 +56,9 @@ public class Activity_User extends Activity{
 		TitleBarHelper.Back(this, "个人信息", 0);
 		
 		Http_Get_Driver();
+		
+		/*版本号*/
+		version_code.setText(SystemUtils.getVersion(Activity_User.this));
 	}
 	
 	public void onClick(View view){

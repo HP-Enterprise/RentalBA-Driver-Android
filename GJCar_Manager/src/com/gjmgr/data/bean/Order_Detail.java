@@ -24,4 +24,10 @@ public class Order_Detail {
 	public String returnCarAddress;
 	public String takeCarAddress;
 	public String outsideDistance;
+	
+	public String airDescribe;
+	
+	public User userShow;
+	public String takeCarCityName;
+	public String returnCarCityName;
 }

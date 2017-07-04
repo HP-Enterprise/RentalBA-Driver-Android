@@ -18,6 +18,15 @@ public class StringHelper {
     	return str;
     }
 	
+	public static  boolean isStringNull(String str){
+    	
+    	if(str == null || str.equals("") || str.equals("null")){
+    		return true;
+    	}
+    	
+    	return false;
+    }
+	
 	public static  String getClassName(String className){
     	
     	String[] strs = className.split("\\.");

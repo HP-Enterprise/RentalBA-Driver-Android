@@ -28,7 +28,9 @@ public class Order{
 	public	String	modelName;
 	public	String	vehicleId;//车辆id
 	public  Integer taskType; //任务类型，1=送车，2=取车
-
+	
+	public  String callOutStoreName;
+	
 	public  String airport;
 	
 	public Integer takeCarMileage;//取车里程

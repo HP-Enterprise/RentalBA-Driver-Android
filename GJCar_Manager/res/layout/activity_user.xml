@@ -251,6 +251,43 @@
                     android:textSize="@dimen/user_text_size" />
 
             </LinearLayout>
+            
+            <View
+                android:id="@+id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#dddddd" />
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="12dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@string/user_text_weight"
+                    android:gravity="center_vertical"
+                    android:text="版本号"
+                    android:textColor="@color/page_text_normal2"
+                    android:textSize="@dimen/user_text_size" />
+
+                <TextView
+                    android:id="@+id/version_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center_vertical|right"
+                    android:text=""
+                    android:textColor="@color/page_text_normal1"
+                    android:textSize="@dimen/user_text_size" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <View

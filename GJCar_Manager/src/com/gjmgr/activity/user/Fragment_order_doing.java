@@ -90,7 +90,7 @@ public class Fragment_order_doing extends Fragment{
 		
 		/*初始化数据*/
 		initData();
-		adapter = new OrderList_Adapter_Doing(getActivity(), orderlist, false);
+//		adapter = new OrderList_Adapter_Doing(getActivity(), orderlist, false);
 		
 		return view;
 	}
@@ -212,7 +212,10 @@ public class Fragment_order_doing extends Fragment{
 							
 							for (int i = 0; i < mylist.size(); i++) {
 								
-								reqest_Data(mylist.get(i).orderCode,mylist.get(i),mylist.get(i).orderType.intValue());							
+								if(mylist.get(i).orderType.intValue() == 3 || mylist.get(i).orderType.intValue() == 4){
+									reqest_Data(mylist.get(i).orderCode,mylist.get(i),mylist.get(i).orderType.intValue());	
+								}
+														
 								
 							}
 						}	
@@ -223,7 +226,7 @@ public class Fragment_order_doing extends Fragment{
 						break;
 						
 					case Show:
-						adapter = new OrderList_Adapter_Doing(getActivity(), orderlist, false);
+						adapter = new OrderList_Adapter_Doing(getActivity(), ListHelper.getListByOrderId(orderlist), false);
 						listview.setVisibility(View.VISIBLE);
 						listview.setAdapter(adapter);
 //						listview.setOnItemClickListener(new OnItemClickListener() {
@@ -289,6 +292,7 @@ public class Fragment_order_doing extends Fragment{
 					JSONObject j = JSON.parseObject(message);
 					int hasContract = j.getIntValue("hasContract");
 					int orderState = j.getIntValue("orderState");
+					System.out.println("list筛选-中间页面-orderid和type"+orderId+"--"+order.orderType);
 					if(hasContract == 1 && orderState == 5){
 						orderlist.add(order);
 						adapter = new OrderList_Adapter_Doing(getActivity(), ListHelper.getListByOrderId(orderlist), false);

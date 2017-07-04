@@ -146,8 +146,10 @@ public class Fragment_order_ok extends Fragment{
 							orderlist = (ArrayList<Order>)msg.obj;System.out.println("orderlist大小"+orderlist.size());
 							for (int i = 0; i < orderlist.size(); i++) {
 								
-								reqest_Data(orderlist.get(i).orderCode, orderlist.get(i), orderlist.get(i).orderType.intValue());
-								
+//								reqest_Data(orderlist.get(i).orderCode, orderlist.get(i), orderlist.get(i).orderType.intValue());
+								if(orderlist.get(i).orderType.intValue() == 3 || orderlist.get(i).orderType.intValue() == 4){
+									reqest_Data(orderlist.get(i).orderCode,orderlist.get(i),orderlist.get(i).orderType.intValue());	
+								}
 							}
 
 //							System.out.println("size"+orderlist.size());	      
@@ -232,7 +234,7 @@ public class Fragment_order_ok extends Fragment{
 					int orderState = j.getIntValue("orderState");
 					if(hasContract == 1 && orderState != 5){
 						orderlist_show.add(order);System.out.println("orderlist_show大小"+orderlist_show.size());
-					
+					System.out.println("list筛选-orderid和type"+orderId+"--"+order.orderType);
 						adapter = new OrderList_Adapter_Ok(getActivity(), ListHelper.getListByOrderId(orderlist_show), false);
 						listview.setVisibility(View.VISIBLE);
 						listview.setAdapter(adapter);

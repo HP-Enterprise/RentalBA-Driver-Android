@@ -35,9 +35,12 @@ public class ListHelper {
             
         	for (int j = 0; j < orderlist_show.size(); j++) {
 				
-        		if((array[i]+"").equals(orderlist_show.get(j).orderCode)){
+        		if((array[i]+"").equals(orderlist_show.get(j).orderCode)){// && (orderlist_show.get(j).orderType.intValue() == 3 || orderlist_show.get(j).orderType.intValue() == 4)
         			list.add(orderlist_show.get(j));
-        			break;
+//        			break;
+        		}else{
+        			
+        			System.out.println("listɸѡ"+orderlist_show.get(j).orderType.intValue());
         		}
 			}
         }

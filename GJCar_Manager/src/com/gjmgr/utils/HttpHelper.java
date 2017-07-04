@@ -57,6 +57,7 @@ public class HttpHelper {
 	 * @param <T>
 	 */
 	public <T> void initData(String method, Context context, String api, JSONObject jsonObject, RequestParams params, Handler handler, int what, int String_Object, TypeReference<T> type) {//1位Object,2为String
+		System.out.println("5月18日--"+Public_Api.appWebSite+api);
 		System.out.println("进入方法:请求url"+api);
 		if(context == null){System.out.println("Http----context为null");
 			HandlerHelper.sendString(handler, what, HandlerHelper.DataFail);
@@ -259,6 +260,7 @@ public class HttpHelper {
 			/* 处理请求成功  */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] data) {
+				System.out.println("5月18日--返回--");
 				System.out.println("2");
 				String databack = new String(data);
 				if(databack == null || databack.equals("") || databack.equals("null")){

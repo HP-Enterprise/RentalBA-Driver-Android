@@ -14,6 +14,7 @@ import com.gjmgr.data.data.Public_Data;
 import com.gjmgr.data.data.Public_Flag;
 import com.gjmgr.data.data.Public_Param;
 import com.gjmgr.data.data.Public_SP;
+import com.gjmgr.data.helper.ListHelper;
 import com.gjmgr.utils.AnnotationViewFUtils;
 import com.gjmgr.utils.HandlerHelper;
 import com.gjmgr.utils.HttpHelper;
@@ -173,6 +174,7 @@ public class Fragment_order extends Fragment{
 							System.out.println("size"+orderlist.size());	      
 				            //	System.out.println("解析结束"+orderlist.get(0).model );	
 				           	if(orderlist.size() == 0){
+				           		System.out.println("5月18日");
 				           		loadHelper.load_empty_animation();
 				           	}
 				           	
