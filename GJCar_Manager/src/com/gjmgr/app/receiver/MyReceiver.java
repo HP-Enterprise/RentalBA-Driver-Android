@@ -1,4 +1,4 @@
-package com.gjmgr.app.receiver;
+﻿package com.gjmgr.app.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -55,7 +55,7 @@ public class MyReceiver extends BroadcastReceiver {
             Public_Data.isReceiveTask = true;
             
             mp.release();
-         
+ ;        
             mp=MediaPlayer.create(context, R.raw.fv);//重新设置要播放的音频
  
             try {System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx1");
