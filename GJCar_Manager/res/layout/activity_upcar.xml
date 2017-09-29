@@ -161,6 +161,42 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_isreturn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" 
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="是否还车"
+            android:textColor="@color/page_text_normal_bolder"
+            android:textSize="16dp" />
+
+        <ToggleButton
+	        android:id="@+id/ok"
+	        android:layout_width="50dp"
+	        android:layout_height="20dp"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginLeft="6dp"
+	        android:layout_marginRight="6dp"
+	        android:background="@drawable/f1_toggle"
+	        android:checked="false"
+	        android:text=""
+	        android:textOff=""
+	        android:textOn=""
+	        android:visibility="gone" />
+        
+    </LinearLayout>
+       
+    <LinearLayout
         android:id="@+id/lin_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

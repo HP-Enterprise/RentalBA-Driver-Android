@@ -109,8 +109,7 @@
             android:background="@color/white"
             android:inputType="number" />
     </LinearLayout>
-
-    
+  
     <Button
         android:id="@+id/submit"
         android:layout_width="fill_parent"

@@ -63,7 +63,7 @@ public class Activity_Car_Return extends Activity{
 
 		/*消息*/
 		initHandler();
-
+		
 	}
 	
 	public void onClick(View view) {
@@ -73,11 +73,11 @@ public class Activity_Car_Return extends Activity{
 			case R.id.time:
 				new DateTimePickerHelper().pickTime(this, time, TimeHelper.getNowTime_YMD(), "选择时间");
 				break;
-			
+				
 			case R.id.oil:
 				new SelectDailog().select(this, "选择油量百分比", oil, StringHelper.getOils());
 				break;	
-			
+				
 			case R.id.submit:
 				
 				/*判断是否有网*/

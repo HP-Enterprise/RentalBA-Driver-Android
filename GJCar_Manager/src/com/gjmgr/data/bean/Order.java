@@ -39,6 +39,7 @@ public class Order{
 	public Integer returnCarMileage;
 	public Integer driverTakeCarMileage;
 	
+	public Long createDate;
 	public Long takeCarDate;
 	public Long takeCarActualDate;//实际取车时间
 	public Long clientTakeCarDate;

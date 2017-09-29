@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -41,22 +42,28 @@ import com.gjmgr.view.helper.ViewInitHelper;
 @ContentView(R.layout.activity_upcar)
 public class Activity_UpCar extends Activity{
 	
-	@ContentWidget(id = R.id.tv_time) TextView tv_time;
-	@ContentWidget(id = R.id.tv_oil) TextView tv_oil;
-	@ContentWidget(id = R.id.tv_distance) TextView tv_distance;
-	@ContentWidget(id = R.id.lin_name) LinearLayout lin_name;
-	@ContentWidget(id = R.id.name) EditText name;
-	
-	@ContentWidget(click = "onClick") EditText time;
-	@ContentWidget(click = "onClick") EditText oil;
-	@ContentWidget(id = R.id.distance) EditText distance;
-	
-	@ContentWidget(click = "onClick") Button submit;
-	
-	@ContentWidget(id = R.id.lin_address) LinearLayout lin_address;//下车地址
+	/*控件*/
+	@ContentWidget(id = R.id.lin_address) LinearLayout lin_address;//上下车地址
+	@ContentWidget(id = R.id.tv_up_down) TextView tv_up_down;
 	@ContentWidget(id = R.id.address) EditText address;
 	@ContentWidget(click = "onClick")  LinearLayout lin_location;
-	@ContentWidget(id = R.id.tv_up_down) TextView tv_up_down;
+	
+	@ContentWidget(id = R.id.tv_time) TextView tv_time;//时间
+	@ContentWidget(click = "onClick") EditText time;
+	
+	@ContentWidget(id = R.id.tv_oil) TextView tv_oil;//油量
+	@ContentWidget(click = "onClick") EditText oil;
+	
+	@ContentWidget(id = R.id.tv_distance) TextView tv_distance;//距离
+	@ContentWidget(id = R.id.distance) EditText distance;
+	
+	@ContentWidget(id = R.id.lin_isreturn) LinearLayout lin_isreturn;//是否还车
+	@ContentWidget(id = R.id.ok) ToggleButton ok;
+	
+	@ContentWidget(id = R.id.lin_name) LinearLayout lin_name;//用车人姓名
+	@ContentWidget(id = R.id.name) EditText name;
+	
+	@ContentWidget(click = "onClick") Button submit;//提交
 	
 	/*参数*/
 	private String from = "up";
@@ -80,14 +87,21 @@ public class Activity_UpCar extends Activity{
 		/*参数*/
 		initParma();
 		
+		time.setText(TimeHelper.getNowTime_YMDHM());
+		
+		/*下车显示选择按钮*/
+		if(!from.equals("up")){
+			
+			lin_isreturn.setVisibility(View.GONE);
+		}
+		
 		/*标题*/
 		if(dispatchOrigin.equals("1")){
 			
 			TitleBarHelper.Back(this, from.equals("up")?"上车回录单":"下车回录单", 0);
 		}else{
 			
-			TitleBarHelper.Back(this, from.equals("up")?"上车回录单":"下车回录单", 0);
-			System.out.println("a上车"+Public_Param.order_up.triptype);
+			TitleBarHelper.Back(this, from.equals("up")?"上车回录单":"下车回录单", 0);System.out.println("a上车"+Public_Param.order_up.triptype);
 //			if(!(from.equals("up"))){//!(from.equals("up")&&Public_Param.order_up.triptype != 2)
 //				
 //				lin_address.setVisibility(View.VISIBLE);
@@ -95,7 +109,7 @@ public class Activity_UpCar extends Activity{
 //			}
 			
 			tv_up_down.setText(from.equals("up")?"上车地址":"下车地址");
-			lin_address.setVisibility(View.VISIBLE);
+			lin_address.setVisibility(View.VISIBLE);			
 			new BaiduMapHelper().startLocationClient(this, handler, Baidu_Location_Address);
 			
 		}
@@ -158,16 +172,14 @@ public class Activity_UpCar extends Activity{
 						new String[]{"地址必须填写","时间必须填写","油量必须填写","里程必须填写"})){
 					return;
 				}
-
 				
 				if(dispatchOrigin.equals("1")){
 					
 				}else{
 					
 					if(from.equals("up")){//上车先请求vehicleId
-										
-						
-						if(TimeHelper.isLateTakeCarTime(Public_Param.order_up.takeCarActualDate, time.getText().toString())){//先判断上车时间
+														
+						if(Public_Param.order_up.takeCarActualDate != null && TimeHelper.isLateTakeCarTime(Public_Param.order_up.takeCarActualDate, time.getText().toString())){//先判断上车时间
 							
 							ToastHelper.showToastShort(Activity_UpCar.this, "时间必须晚于取车时间"+TimeHelper.getTimemis_to_StringTime(Public_Param.order_up.takeCarActualDate.toString()));
 							
@@ -329,6 +341,11 @@ public class Activity_UpCar extends Activity{
 						
 						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
 							
+							if(!from.equals("up") && ok.VISIBLE == View.VISIBLE && !ok.isChecked()){//接送机不还车
+								
+								Public_Param.isReturnCarOK = true;
+							}
+							
 							ToastHelper.showToastShort(Activity_UpCar.this, "回录成功");
 							finish();
 				           	return;
@@ -389,12 +406,12 @@ public class Activity_UpCar extends Activity{
 			jsonObject.put("driverId", Public_Param.order_down.driverId);//调度司机id
 			jsonObject.put("realEndTime",  Long.parseLong(TimeHelper.getSearchTime_Mis(time.getText().toString())));//下车时间
 			jsonObject.put("clientActualDebusAddress",  address.getText().toString());//下车时间
-		
+			
 			if(dispatchOrigin.equals("1")){
 				jsonObject.put("recipientName",  name.getText().toString().trim());//接收人姓名
 			}
 										
-			api = "api/dispatch/task-finish?getOffFuel="+oil.getText().toString()+"&getOffMileage="+distance.getText().toString();
+			api = "api/dispatch/task-finish?getOffFuel="+oil.getText().toString()+"&getOffMileage="+distance.getText().toString()+"&returnCar="+ok.isChecked();
 		}
 
 		/*提交*/
@@ -402,7 +419,7 @@ public class Activity_UpCar extends Activity{
 		
 	}
 	
-	/*请求订单Id*/
+	/**请求订单Id*/
 	private void Request_vehicleId(){
 			
 		/*加载费用*/
@@ -418,12 +435,12 @@ public class Activity_UpCar extends Activity{
 			default:
 				break;
 		};
-		
+		System.out.println("vvv----1");
 		new HttpHelper().initData(HttpHelper.Method_Get, this, api, null, null, handler, Request_vehicleId, 1, new TypeReference<Order>() {});		
 		
 	}
 	
-	/*请求订单Id*/
+	/**请求订单Id*/
 	private void Request_door_vehicleId(){
 			
 		/*加载费用*/

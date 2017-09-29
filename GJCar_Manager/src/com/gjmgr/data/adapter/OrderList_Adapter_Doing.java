@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.gjmgr.activity.user.Activity_Car_Allot;
 import com.gjmgr.activity.user.Activity_Car_Return;
+import com.gjmgr.activity.user.Activity_Order_Add_List;
 import com.gjmgr.activity.user.Activity_Order_Detail;
 import com.gjmgr.activity.user.Activity_UpCar;
 import com.gjmgr.app.R;
@@ -50,6 +51,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 	private Handler handler;
 	private Handler contractHandler;
 	private Handler downHandler;
+	private Handler handler_contract_raod;
 	private boolean isRequest = false;
 	
 	String[] vendorIds;
@@ -76,6 +78,8 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		initHandler2();
 		
 		initHandler3();
+		
+		initHandler_Road_Contact();
 	}
 
 	@Override
@@ -119,12 +123,13 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		holder.c_ok = (TextView) convertView.findViewById(R.id.c_ok);	
 		holder.c_cancle = (TextView) convertView.findViewById(R.id.c_cancle);
 		holder.c_returncar = (TextView) convertView.findViewById(R.id.c_returncar);
+		holder.c_road = (TextView) convertView.findViewById(R.id.c_road);
 		
 		holder.c_getcar.setVisibility(View.GONE);
 		holder.c_ok.setVisibility(View.GONE);
 		holder.c_cancle.setVisibility(View.GONE);
 		holder.c_returncar.setVisibility(View.GONE);
-			
+		
 		if(orderlist.get(position).orderType.intValue() == 2){//门到门
 			
 			//标题
@@ -144,7 +149,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			holder.b_end_address.setText((orderlist.get(position).taskType.intValue() == 1) ? StringHelper.getString(orderlist.get(position).customerAddress) : StringHelper.getString(orderlist.get(position).callOutStoreName));	
 			
 			//按钮
-			button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
+			button_status(false,orderlist.get(position).orderCode,orderlist.get(position).orderType,holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
 			
 		}else{//接送接和短租带驾
 			
@@ -164,9 +169,9 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 					holder.a_order_ty,holder.a_order_distance,holder.b_air_message,holder.a_order_time,holder.b_start_address,holder.b_end_address,orderlist.get(position).dispatchStatus,
 					
 					holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);		
-			
-			button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,
-					holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
+//			
+//			button_status(orderlist.get(position).orderCode,orderlist.get(position).orderType,
+//					holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar);
 			//reqest_Data(orderlist.get(position).orderCode, position, holder.c_ok,holder.c_cancle,holder.c_getcar,holder.c_returncar, orderlist.get(position).dispatchStatus);
 			System.out.println("aaaaaaaaaaaaaaaaa11");
 			//reqest_Contackt(orderlist.get(position).orderCode, holder.b_car);
@@ -192,6 +197,42 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 				
 				IntentHelper.startActivity(context, Activity_Order_Detail.class);
 
+			}
+		});
+		
+		holder.c_road.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				if(isRequest){//如果正在请求，就不然它请求
+					
+					return;
+				}
+				isRequest = true;				
+				
+				String api = "";
+				switch (orderlist.get(position).orderType.intValue()) {
+					case 2://门到门
+						api = "api/door/"+orderlist.get(position).orderCode+"/contract";
+						break;
+						
+					case 3://代驾
+						api = "api/contract/"+orderlist.get(position).orderCode+"/contractDetail";
+						break;
+			
+					case 4://接送机
+						api = "api/airportTrip/"+orderlist.get(position).orderCode+"/contract";
+						break;
+					default:
+						break;
+				}
+
+				Public_Param.road_type = orderlist.get(position).orderType.intValue();
+				Public_Param.road_orderId = orderlist.get(position).orderCode;
+				
+				new HttpHelper().initData(HttpHelper.Method_Get, context, api, null, null, handler_contract_raod, position, 1, new TypeReference<Order>() {});		
+		
 			}
 		});
 		
@@ -246,6 +287,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 				String api = "";
 				
 				switch (orderlist.get(position).orderType) {
+				
 					case 2://门到门
 						api = "api/door/"+orderlist.get(position).orderCode+"/contract";
 						break;
@@ -317,6 +359,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		private TextView c_ok;
 		private TextView c_cancle;
 		private TextView c_returncar;
+		private TextView c_road;
 	}
 
 		
@@ -354,13 +397,14 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 							break;
 							
 						case 3://代驾
-							Public_Param.order_up.takeCarActualDate = order.driverTakeCarDate;
+							Public_Param.order_up.takeCarActualDate = order.driverTakeCarDate; 
+							
 							Public_Param.order_up.takeCarMileage =( order.driverTakeCarMileage == null ? 1 : order.driverTakeCarMileage);
 							
 							break;
 				
 						case 4://接送机
-							Public_Param.order_up.takeCarActualDate = order.takeCarActualDate;
+							Public_Param.order_up.takeCarActualDate = order.takeCarActualDate;// == null ? order.createDate  : order.takeCarActualDate;;
 							break;
 							
 						default:
@@ -376,7 +420,47 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			}
 		};
 	}
-		private void initHandler3() {
+	
+
+	private void initHandler_Road_Contact() {
+			
+		handler_contract_raod = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+			
+					isRequest = false;
+					
+					if(msg.getData().getString("message").equals(HandlerHelper.Ok)){
+						
+						Order order = (Order)msg.obj;
+						
+						if(order == null){
+							
+							ToastHelper.showToastShort(context, "订单不存在");						
+							return;
+						}
+						
+						if(order.vehicleId == null){
+							
+							ToastHelper.showToastShort(context, "请先提车");						
+							return;
+						}
+						
+						Public_Param.road_vehicleId = order.vehicleId;
+						Public_Param.way = Public_Param.Way_Doing;
+						IntentHelper.startActivity(context, Activity_Order_Add_List.class);
+						
+						return;
+					}
+					
+					ToastHelper.showToastShort(context, "生成合同后才能执行此操作");
+			}
+		};
+		
+	}
+	
+	private void initHandler3() {
 			
 			downHandler = new Handler() {
 				@Override
@@ -418,18 +502,34 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			final TextView c_ok,final TextView c_cancle,final TextView c_getcar,final TextView c_returncar) {
 		System.out.println("发送请求"+orderId);
 		String api = "";System.out.println("req_2_orderType"+orderType);
+//		switch (orderType) {
+//			case 3://代驾
+//				api = "api/driver/"+orderId+"/order";
+//				break;
+//	
+//			case 4://接送机
+//				api = "api/airportTrip/"+orderId+"/order";
+//				break;
+//			default:
+//				break;
+//		}
 		switch (orderType) {
+		
+			case 2://门到门			
+				api = "api/door/"+orderId+"/contract";			
+				break;
+			
 			case 3://代驾
-				api = "api/driver/"+orderId+"/order";
+				api = "api/contract/"+orderId+"/contractDetail";
 				break;
 	
 			case 4://接送机
-				api = "api/airportTrip/"+orderId+"/order";
+				api = "api/airportTrip/"+orderId+"/contract";
 				break;
 			default:
 				break;
 		}
-		
+		System.out.println("req_2_orderType_url"+api);
 		/* 向服务器登陆 */
 		AsyncHttpClient httpClient = new AsyncHttpClient();
 
@@ -442,21 +542,30 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 			/* 处理请求成功 */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-
+				
+				if(arg2==null ||new String(arg2)==null||new String(arg2).equals("")){
+					
+					return;
+				}
+				
 				String backData = new String(arg2);
 				System.out.println("req_2_开始");
 				System.out.println("req_2_url"+url);
 				System.out.println("req_2_返回值"+backData);
 				JSONObject statusjobject = JSON.parseObject(backData);System.out.println("req_2_a1_0");
-
+				
 				boolean status = statusjobject.getBoolean("status");System.out.println("req_2_a1_1");
 				String message = statusjobject.getString("message");System.out.println("req_2_a1_2");
-
+				
 				if (status) {
 					/*订单信息*/
 					JSONObject j1 = JSON.parseObject(message);
 					System.out.println("req_2_a1");
-					if(orderType == 4){
+					
+					if(orderType == 4){//接送机
+						
+						String vehicleId = j1.getString("vehicleId");
+						boolean isVehicleIdBNull = StringHelper.isStringNull(vehicleId);
 						
 						String airlineCompany = j1.getString("airlineCompany");
 						String flightNumber = j1.getString("flightNumber");
@@ -488,6 +597,9 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 							b_end_address.setText(""+tripAddress);
 						}						
 						
+						//按钮状态
+						button_status(isVehicleIdBNull,orderId,orderType,c_ok,c_cancle,c_getcar,c_returncar);
+						
 					}else{
 						
 						String takeCarAddress = j1.getString("takeCarAddress");
@@ -505,6 +617,9 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 	//					holder.b_start_address.setText(TimeHelper.getDateTime_YM(TimeHelper.getTimemis_to_StringTime(orderlist.get(position).expectEndTime)));
 						b_end_address.setText(""+returnCarAddress);
 						b_start_address.setText(""+takeCarAddress);System.out.println("req_2_a1_2");
+						
+						//按钮状态
+						button_status(false,orderId,orderType,c_ok,c_cancle,c_getcar,c_returncar);
 					}
 					
 					/*状态*/
@@ -545,18 +660,28 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 	private void is_HasContact(final String orderId, final int orderType) {
 		
 		String api = "";
+//		switch (orderType) {
+//			case 3://代驾
+//				api = "api/driver/"+orderId+"/order";
+//				break;
+//	
+//			case 4://接送机
+//				api = "api/airportTrip/"+orderId+"/order";
+//				break;
+//			default:
+//				break;
+//		}
 		switch (orderType) {
 			case 3://代驾
-				api = "api/driver/"+orderId+"/order";
+				api = "api/contract/"+orderId+"/contractDetail";
 				break;
 	
 			case 4://接送机
-				api = "api/airportTrip/"+orderId+"/order";
+				api = "api/airportTrip/"+orderId+"/contract";
 				break;
 			default:
 				break;
 		}
-		
 		/* 向服务器登陆 */
 		AsyncHttpClient httpClient = new AsyncHttpClient();
 
@@ -580,17 +705,21 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 
 				if (status) {
 					
-					JSONObject j = JSON.parseObject(message);
-					int hasContract = j.getIntValue("hasContract");
+					IntentHelper.startActivity(context, Activity_Car_Allot.class);
+//					JSONObject j = JSON.parseObject(message);
+//					int hasContract = j.getIntValue("hasContract");
+//					
+//					if(hasContract == 1){
+//					
+//						IntentHelper.startActivity(context, Activity_Car_Allot.class);
+//					}else{
+//						
+//						ToastHelper.showToastShort(context, "请先生成合同");
+//					}
 					
-					if(hasContract == 1){
+				}else{
 					
-						IntentHelper.startActivity(context, Activity_Car_Allot.class);
-					}else{
-						
-						ToastHelper.showToastShort(context, "请先生成合同");
-					}
-					
+					ToastHelper.showToastShort(context, "请先生成合同");
 				}
 				
 			}
@@ -665,7 +794,7 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 		});
 	}
 	
-	private void button_status(final String orderId, final int orderType,final TextView c_ok,final TextView c_cancle,final TextView c_getcar,final TextView c_returncar) {
+	private void button_status(final boolean isVelNull,final String orderId, final int orderType,final TextView c_ok,final TextView c_cancle,final TextView c_getcar,final TextView c_returncar) {
 		
 		String api = "";
 		switch (orderType) {
@@ -760,25 +889,39 @@ public class OrderList_Adapter_Doing extends BaseAdapter {
 								break;
 							
 							case 3:
-								c_ok.setVisibility(View.VISIBLE);						
+								c_ok.setVisibility(View.VISIBLE);
 								break;
 														
 							case 4:
-								c_cancle.setVisibility(View.VISIBLE);		
+								c_cancle.setVisibility(View.VISIBLE);
 								break;
 								
 							case 5:
-								c_returncar.setVisibility(View.VISIBLE);		
+								c_returncar.setVisibility(View.VISIBLE);
 								break;
+								
 							default:
 								break;
 						}
 					}
 					
 					
-				}else{
+				}else{//还没有生成合同
 					
-					c_getcar.setVisibility(View.VISIBLE);
+					if(orderType == 4){//接送机
+						
+						if(!isVelNull){//不为null，就显示 上车
+							
+							c_ok.setVisibility(View.VISIBLE);
+						}else{
+							
+							c_getcar.setVisibility(View.VISIBLE);
+						}
+						
+					}else{
+						
+						c_getcar.setVisibility(View.VISIBLE);
+					}
 				}
 				System.out.println("req_2_status_结束");
 			}

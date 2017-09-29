@@ -33,14 +33,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Activity_Order_AllList extends FragmentActivity implements Update_Notify{
-
-
+	
 	public ViewPager viewPager;
 	
 	private FragmentPagerAdapter pagerAdapter;
 	private Fragment[] pages;
 	private FragmentManager fragmentManager;
-
+	
 	private FixedSpeedScroller scroller; 
 	
 	private TextView t_notuse,t_use,t_timeout;
@@ -55,6 +54,7 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 	private Fragment_order_ok page_2;
 	
 	private LinearLayout menu_out;/*头像*/
+	private TextView ok_true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 		
 		initView();
 		
+		/*判断gps是否运行：后台gps被杀死了，无法知道，所以只能保存上一次的时间来判断是否还在*/
 		if(!TimeHelper.isGps(this)){System.out.println("gps-------");
 			Intent intent = new Intent(Activity_Order_AllList.this, Servcie_Gps.class);
 			startService(intent);
@@ -81,6 +82,7 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 		new HttpHelper().initData(HttpHelper.Method_Get, this, "api/appManage/latest?appType=2", null, null, handler, Request_Version, 1, new TypeReference<ApkInfo>() {});
 		
 		Public_Param.activity = Activity_Order_AllList.this;
+		
 	}
 
 	private void initPageInditor() {
@@ -103,6 +105,17 @@ public class Activity_Order_AllList extends FragmentActivity implements Update_N
 			public void onClick(View view) {
 				
 				startActivity(new Intent(Activity_Order_AllList.this, Activity_User.class));
+			}
+		});
+		
+		ok_true = (TextView)this.findViewById(R.id.ok_true);
+		
+		ok_true.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				startActivity(new Intent(Activity_Order_AllList.this, Activity_Transfer_Return.class));
 			}
 		});
 		

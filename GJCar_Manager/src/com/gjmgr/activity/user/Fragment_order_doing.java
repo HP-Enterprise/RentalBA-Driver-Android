@@ -65,9 +65,7 @@ public class Fragment_order_doing extends Fragment{
 	
 	/*动画*/
 	private LoadAnimateHelper_Fragment loadHelper = new LoadAnimateHelper_Fragment();
-	
-	
-	
+		
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -119,8 +117,7 @@ public class Fragment_order_doing extends Fragment{
 	}
 	
 	public void initData() {System.out.println("待完成--未上车--------------------------");
-	
-		
+			
 		listview.setVisibility(View.GONE);
 		orderlist.clear();
 		String driverId = SharedPreferenceHelper.getString(getActivity(), Public_SP.Account, "id");
@@ -156,7 +153,7 @@ public class Fragment_order_doing extends Fragment{
 						
 						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
 							
-							orderlist = (ArrayList<Order>)msg.obj;
+							orderlist = (ArrayList<Order>)msg.obj;System.out.println("pg1-Request_notdo-size"+orderlist.size());
 						}
 						
 						System.out.println("待完成--已上车--------------------------");
@@ -172,7 +169,7 @@ public class Fragment_order_doing extends Fragment{
 						loadHelper.load_success_animation();
 						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
 							
-							ArrayList<Order> mylist = (ArrayList<Order>)msg.obj;
+							ArrayList<Order> mylist = (ArrayList<Order>)msg.obj;System.out.println("pg1-Request_doing-size"+mylist.size());
 							
 							for (int i = 0; i < mylist.size(); i++) {
 								
@@ -182,6 +179,7 @@ public class Fragment_order_doing extends Fragment{
 				           	if( orderlist != null && orderlist.size() == 0){
 				           		
 //				           		loadHelper.load_empty_animation();
+				           		handler.sendEmptyMessage(Show);	
 				           		return;
 				           	}
 				           	
@@ -195,6 +193,7 @@ public class Fragment_order_doing extends Fragment{
 						if( orderlist != null && orderlist.size() == 0){
 			           		
 //			           		loadHelper.load_empty_animation();
+							handler.sendEmptyMessage(Show);	
 			           		return;
 			           	}
 			           	
@@ -208,15 +207,14 @@ public class Fragment_order_doing extends Fragment{
 						
 						if(HandlerHelper.getString(msg).equals(HandlerHelper.Ok)){
 							
-							ArrayList<Order> mylist = (ArrayList<Order>)msg.obj;
+							ArrayList<Order> mylist = (ArrayList<Order>)msg.obj;System.out.println("pg1-Request_car"+mylist.size());
 							
 							for (int i = 0; i < mylist.size(); i++) {
 								
 								if(mylist.get(i).orderType.intValue() == 3 || mylist.get(i).orderType.intValue() == 4){
 									reqest_Data(mylist.get(i).orderCode,mylist.get(i),mylist.get(i).orderType.intValue());	
 								}
-														
-								
+																						
 							}
 						}	
 						break;
@@ -225,8 +223,8 @@ public class Fragment_order_doing extends Fragment{
 						initData();
 						break;
 						
-					case Show:
-						adapter = new OrderList_Adapter_Doing(getActivity(), ListHelper.getListByOrderId(orderlist), false);
+					case Show:System.out.println("pg1-Request-首次显示数量"+orderlist.size());
+						adapter = new OrderList_Adapter_Doing(getActivity(), ListHelper.getListByOrderId(orderlist), false);System.out.println("pg1-Request-首次显示数量"+ListHelper.getListByOrderId(orderlist).size());
 						listview.setVisibility(View.VISIBLE);
 						listview.setAdapter(adapter);
 //						listview.setOnItemClickListener(new OnItemClickListener() {
@@ -279,14 +277,19 @@ public class Fragment_order_doing extends Fragment{
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 
+				if(arg2==null ||new String(arg2)==null||new String(arg2).equals("")){
+					
+					return;
+				}
+				
 				String backData = new String(arg2);
 				System.out.println("请求处理成功:" + backData);
-
+				
 				JSONObject statusjobject = JSON.parseObject(backData);
-
+				
 				boolean status = statusjobject.getBoolean("status");
 				String message = statusjobject.getString("message");
-
+				
 				if (status) {
 					
 					JSONObject j = JSON.parseObject(message);
@@ -294,7 +297,7 @@ public class Fragment_order_doing extends Fragment{
 					int orderState = j.getIntValue("orderState");
 					System.out.println("list筛选-中间页面-orderid和type"+orderId+"--"+order.orderType);
 					if(hasContract == 1 && orderState == 5){
-						orderlist.add(order);
+						orderlist.add(order);System.out.println("pg1-Request-add"+order.orderCode);System.out.println("pg1-Request-显示数量"+ListHelper.getListByOrderId(orderlist).size());
 						adapter = new OrderList_Adapter_Doing(getActivity(), ListHelper.getListByOrderId(orderlist), false);
 						listview.setVisibility(View.VISIBLE);
 						listview.setAdapter(adapter);

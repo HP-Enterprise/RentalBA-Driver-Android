@@ -160,9 +160,23 @@ public class HttpHelper {
 			
 			/* 5.处理请求失败  */
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {System.out.println("失败");
+			public void onFailure(int arg0, Header[] arg1, byte[] data,Throwable arg3) {System.out.println("失败");
 				httpClient.cancelAllRequests(true);
-				HandlerHelper.sendString(handler, what, HandlerHelper.DataFail);
+				
+				System.out.println("Http-请求结果：onFailure");
+				
+				if(data==null ||new String(data)==null||new String(data).equals("")){
+					
+					System.out.println("Http-返回值：返回值为空");
+					
+					HandlerHelper.sendStringData(handler, what, HandlerHelper.DataFail, "系统异常");
+					return;
+				}
+
+				String databack = new String(data);System.out.println("Http-返回值：	"+ databack);
+				
+				httpClient.cancelAllRequests(true);
+				HandlerHelper.sendStringData(handler, what, HandlerHelper.DataFail, databack);
 			}
 		});	
 	}
@@ -383,7 +397,7 @@ public class HttpHelper {
 	          String key = "driver_token";
 	          String val = SharedPreferenceHelper.getString(context, Public_SP.Account, key);
 //	          String key = "token_staff";
-//	          String val = "01DB4C43D9994A4E2BF8B9A4B87E98B0";
+//	          String val = "1E1DA0E468C3E36130A11B5D3DB0FB9C";
 	          
 	          sb.append(key);
 	          sb.append("=");

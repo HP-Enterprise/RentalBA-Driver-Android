@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import com.gjmgr.activity.user.Servcie_Gps;
 import com.gjmgr.data.data.Public_SP;
 
 import android.annotation.SuppressLint;
@@ -1233,5 +1232,33 @@ public class TimeHelper {
 		
 		return false;
 	}
+	public static String getTime_Str(String longtime) {
 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+		String date = sdf.format(new Date(new Long(longtime)));
+
+		return date;
+	}
+	
+	/*获取时间的差值---开始时间，结束时间   */
+	public static boolean isLate(String startdate, String enddate) {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date start;
+		try {
+			start = format.parse(startdate);
+			Date end = format.parse(enddate);
+			long difference = end.getTime() - start.getTime();
+			
+			long seconds = difference/1000;
+			
+			return seconds > 0 ? true : false;
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+
+		return false;
+	}
 }

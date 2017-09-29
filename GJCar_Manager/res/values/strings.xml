@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">赶脚司机端</string>
+    <string name="app_name">赶脚司机</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
-     <!-- 更新app-->
+    <!-- 更新app-->
     <string name="dialog_ok">立即更新</string>
     <string name="dialog_cancel">稍后再说</string>
     
     <string name="user_text_weight">4</string>
+    
+    <string name="order_w_1">18</string>
+    <string name="order_w_2">42</string>
+    <string name="order_w_3">10</string>
+    
 </resources>

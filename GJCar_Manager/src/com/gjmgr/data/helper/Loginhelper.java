@@ -117,9 +117,10 @@ public class Loginhelper {
 						
 						// ±£¥Ê√‹¬Î
 						SharedPreferenceHelper.putBean(context,
-								Public_SP.Account, new String[] { "id","name", "phone", "driver_token" }, 
-								new Object[] {account.id, account.name,account.phone, token },
+								Public_SP.Account, new String[] { "id","name", "phone", "driver_token","cityId" }, 
+								new Object[] {account.id, account.name,account.phone, token,account.cityId },
 								new int[] { SharedPreferenceHelper.Type_String,
+										SharedPreferenceHelper.Type_String,
 										SharedPreferenceHelper.Type_String,
 										SharedPreferenceHelper.Type_String,
 										SharedPreferenceHelper.Type_String});

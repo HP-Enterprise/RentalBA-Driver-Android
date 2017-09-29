@@ -12,21 +12,23 @@ public class Public_Api {
 	*****************************************************************************************************************************************/
 	
 	/* 网址*/
-//	public static String appWebSite = "http://121.40.157.200:7890/";
+//	public static String appWebSite = "http://10.0.12.202:41234/";
 //	public static String appWebSite = "http://10.0.12.199:51234/";
 //	public static String appWebSite = "http://121.40.157.200:41234/";
 																			
 //	public static String appWebSite = "http://10.0.12.178:41234/";
-//	public static String appWebSite = "http://www.feeling.hpecar.com/";
-//	public static String appWebSite = "http://www.gjcar.com/";
-//	public static String appWebSite = "http://192.168.20.12/";
-	public static String appWebSite = "http://182.61.22.80/";
+//	public static String appWebSite = "http://182.61.22.80";//:8081
+	public static String appWebSite = "http://www.gjcar.com/";
+//	public static String appWebSite = "http://182.61.35.59:51234/";
+//	public static String appWebSite = "http://182.61.22.80/";
+//	public static String appWebSite_test = "http://182.61.22.80/";
+	public static String appWebSite_test = "http://www.gjcar.com/";
 //	public static String appWebSite = "http://gjwap.ngrok.cc";
 	//	public static String appWebSite = "http://www.rental.hpecar.com/";
 	/******************************************************************************************************************************************
 	** api                     **************************************************************************************************************
 	*****************************************************************************************************************************************/	
-	
+
 	/**一。用户信息*/
 	
 	/* 发送短信*/

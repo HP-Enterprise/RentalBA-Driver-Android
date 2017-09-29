@@ -16,7 +16,83 @@
         android:paddingTop="8dp"
         android:text="租车车型：华颂-自动2.0（中配）"
         android:textColor="@color/page_text_normal1"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/f1_form_select"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="12dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/f1_form_modelselect_lin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selfdriving_message_bg"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp" >
+
+            <TextView
+                android:id="@+id/f1_form_modelselect_carmodel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:text="车型"
+                android:textColor="#919191"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/selfdriving_down" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/f1_form_state_lin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selfdriving_message_bg"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp" >
+
+            <TextView
+                android:id="@+id/f1_form_state"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:text="全部"
+                android:textColor="#919191"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/selfdriving_down" />
+        </LinearLayout>
+    </LinearLayout>
 
     <com.gjmgr.view.listview.XListView
         android:id="@+id/listview"

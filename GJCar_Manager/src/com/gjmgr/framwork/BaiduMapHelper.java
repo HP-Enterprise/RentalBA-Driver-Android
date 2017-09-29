@@ -116,7 +116,7 @@ public class BaiduMapHelper {
 				}else{
 					System.out.println("µØÖ·"+location.getAddrStr());
 				}
-
+				System.out.println("³ÇÊÐÂë--"+location.getCityCode());
 				mLocClient.stop();
 				HandlerHelper.sendStringObject(handler, msg, "ok",locationMessage);
 			}

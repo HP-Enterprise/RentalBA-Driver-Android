@@ -43,4 +43,16 @@
     <!-- 接送机 -->
     <dimen name="mypage_arrow_width">15dp</dimen>
     <dimen name="mypage_arrow_height">15dp</dimen>
+    
+    <!-- 数据 -->
+    <dimen name="order_tv1_left">12dp</dimen>
+    <dimen name="order_et_left">4dp</dimen>
+    <dimen name="order_et_top">4dp</dimen>
+    <dimen name="order_et_bottom">4dp</dimen>
+    <dimen name="order_lin_top">4dp</dimen>
+    <dimen name="order_lin_bottom">4dp</dimen>
+    <dimen name="order_tv2_left">8dp</dimen>
+    <dimen name="order_tv1_size">13dp</dimen>
+    <dimen name="order_tv2_size">13dp</dimen>
+    
 </resources>

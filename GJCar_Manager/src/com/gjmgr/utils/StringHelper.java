@@ -6,6 +6,10 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.widget.EditText;
 
 public class StringHelper {
 
@@ -17,7 +21,22 @@ public class StringHelper {
     	
     	return str;
     }
-	
+	public static  String getFloat(Float str){
+    	
+    	if(str == null){
+    		return "";
+    	}
+    	
+    	return str.toString();
+    }
+	public static String getInteger(Integer str){
+    	
+    	if(str == null){
+    		return "";
+    	}
+    	
+    	return str.toString();
+    }
 	public static  boolean isStringNull(String str){
     	
     	if(str == null || str.equals("") || str.equals("null")){
@@ -325,4 +344,44 @@ public class StringHelper {
     	
     	return oils;
     }
+    
+	public static int getInt_From_String(String strtype, String[] strs){
+		
+		for (int i = 0; i < strs.length; i++) {
+			
+			if (strtype.equals(strs[i])) {
+				
+				return i;
+			}
+		}
+		
+		return 0;
+	}
+	
+	//金额验证  
+	public static boolean isMoneyNumber(String str){   
+		
+		 if(str.contains(".") && str.substring(str.length()-1, str.length()).equals(".")){
+			 
+			 return false;
+		 }
+		
+	     Pattern pattern=Pattern.compile("^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?$"); // 判断小数点后2位的数字的正则表达式  
+	     Matcher match=pattern.matcher(str);   
+	     if(match.matches()==false){   
+	        return false;   
+	     }else{   
+	        return true;   
+	     }   
+	 } 
+	
+	public static String getEdit(EditText edit){
+		
+		if(edit.getText().toString() == null || edit.getText().toString().equals("")){
+			System.out.println("为空");		
+			return "0";
+		}
+		return edit.getText().toString();
+	}
+	
 }

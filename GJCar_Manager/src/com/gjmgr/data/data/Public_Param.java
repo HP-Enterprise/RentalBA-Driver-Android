@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.gjmgr.activity.user.Activity_Order_AllList;
 import com.gjmgr.data.bean.Order;
 import com.gjmgr.data.bean.Order_Down;
+import com.gjmgr.data.bean.Order_Road;
 import com.gjmgr.data.bean.Order_Up;
 
 public class Public_Param {
@@ -44,7 +45,7 @@ public class Public_Param {
 	public static int downcar_orderType = 0;
 	public static int return_orderType = 0;
 	public static int orderdeaail_orderType = 0;
-	
+
 	/*详情*/
 	public static String model_ok;
 	
@@ -64,4 +65,17 @@ public class Public_Param {
 	/*跳转*/
 	public static ViewPager viewPager;
 	public static boolean isReturnCarOK = false;
+	
+	public static int Way_Order_Add = 1;
+	public static int Way_Order_Edit = 2;
+	public static Order_Road order_edit;
+	
+	/*路单参数*/
+	public static String road_vehicleId;
+	public static int road_type = 0;
+	public static String road_orderId;
+	
+	public static int Way_Doing = 1;
+	public static int Way_Ok = 2;
+	public static int way = 0;
 }

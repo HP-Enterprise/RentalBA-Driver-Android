@@ -33,6 +33,20 @@
                 android:layout_height="20dp"
                 android:src="@drawable/main_title_person" />
         </LinearLayout>
+        
+        <TextView
+        android:id="@+id/ok_true"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:text="提还车"
+        android:textColor="#555555"
+        android:textSize="14dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <LinearLayout

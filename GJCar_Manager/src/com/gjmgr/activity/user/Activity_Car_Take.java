@@ -134,6 +134,12 @@ public class Activity_Car_Take extends Activity{
 							ToastHelper.showToastShort(Activity_Car_Take.this, "提车成功");
 							finish();
 				           	return;
+						}				
+						
+						if(HandlerHelper.getString(msg).equals(HandlerHelper.Fail)){
+							
+							ToastHelper.showToastShort(Activity_Car_Take.this, msg.getData().getString("data"));
+				           	return;
 						}
 						
 						ToastHelper.showToastShort(Activity_Car_Take.this, "提车失败");

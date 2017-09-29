@@ -82,7 +82,6 @@ public class Fragment_order_ok extends Fragment{
 //		TitleBarHelper.Back(this, "订单列表", 0);
 		System.out.println("标题TTTTTTTTTTTTTTTTT");
 
-		
 		/*加载动画*/
 		loadHelper.Search_Animate(getActivity(), view, R.id.activity, handler, Click, true,true,0,"您还没有已完成的订单任务");
 		
@@ -144,10 +143,12 @@ public class Fragment_order_ok extends Fragment{
 							
 							orderlist_show = new ArrayList<Order>();
 							orderlist = (ArrayList<Order>)msg.obj;System.out.println("orderlist大小"+orderlist.size());
+							orderlist = ListHelper.getListByOrderId(orderlist);System.out.println("orderlist大小-变形"+orderlist.size());
 							for (int i = 0; i < orderlist.size(); i++) {
 								
 //								reqest_Data(orderlist.get(i).orderCode, orderlist.get(i), orderlist.get(i).orderType.intValue());
 								if(orderlist.get(i).orderType.intValue() == 3 || orderlist.get(i).orderType.intValue() == 4){
+									System.out.println("ppp-"+i);
 									reqest_Data(orderlist.get(i).orderCode,orderlist.get(i),orderlist.get(i).orderType.intValue());	
 								}
 							}
@@ -211,30 +212,35 @@ public class Fragment_order_ok extends Fragment{
 
 		RequestParams params = new RequestParams();// 设置请求参数
 
-		String url = Public_Api.appWebSite + api;
+		String url = Public_Api.appWebSite + api;System.out.println("ppp-"+api);
 		
 		httpClient.get(url, params, new AsyncHttpResponseHandler() {
 
 			/* 处理请求成功 */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-
+				
+				if(arg2==null ||new String(arg2)==null||new String(arg2).equals("")){
+					
+					return;
+				}
+				
 				String backData = new String(arg2);
-				System.out.println("请求处理成功:" + backData);
+				System.out.println("请求处理成功:" + backData);System.out.println("ppp-返回");
 
 				JSONObject statusjobject = JSON.parseObject(backData);
 
 				boolean status = statusjobject.getBoolean("status");
-				String message = statusjobject.getString("message");
+				String message = statusjobject.getString("message");System.out.println("ppp-ok");
 
 				if (status) {
 					
 					JSONObject j = JSON.parseObject(message);
 					int hasContract = j.getIntValue("hasContract");
 					int orderState = j.getIntValue("orderState");
-					if(hasContract == 1 && orderState != 5){
+					if(hasContract == 1 && orderState != 5){System.out.println("ppp-over");
 						orderlist_show.add(order);System.out.println("orderlist_show大小"+orderlist_show.size());
-					System.out.println("list筛选-orderid和type"+orderId+"--"+order.orderType);
+					System.out.println("list筛选-orderid和type"+orderId+"--"+order.orderType);System.out.println("ppp-size");
 						adapter = new OrderList_Adapter_Ok(getActivity(), ListHelper.getListByOrderId(orderlist_show), false);
 						listview.setVisibility(View.VISIBLE);
 						listview.setAdapter(adapter);

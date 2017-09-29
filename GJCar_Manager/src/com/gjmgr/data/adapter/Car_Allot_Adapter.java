@@ -85,8 +85,10 @@ public class Car_Allot_Adapter extends BaseAdapter {
 		holder.b_1.setText("车型："+orderlist.get(position).vehicleModelShow.model);System.out.println("as2");
 		holder.b_2.setText("颜色："+orderlist.get(position).colour);System.out.println("as3");
 		holder.b_3.setText("当前里程数："+orderlist.get(position).mileage);		System.out.println("as4");
-		holder.b_4.setText("车辆状态：待租赁");System.out.println("as5");
-
+		
+		String state = orderlist.get(position).state.equals("rented") ? "租赁中" : "待租赁";
+		holder.b_4.setText("车辆状态："+state);System.out.println("as5");
+	
 		holder.a_2.setOnClickListener(new OnClickListener() {
 				
 			@Override

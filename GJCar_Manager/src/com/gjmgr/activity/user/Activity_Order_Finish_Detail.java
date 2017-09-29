@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.TypeReference;
@@ -45,14 +46,17 @@ public class Activity_Order_Finish_Detail extends Activity{
 	@ContentWidget(id = R.id.b_end_time) TextView b_end_time;
 	@ContentWidget(id = R.id.b_end_address) TextView b_end_address;
 
-	/*油量*/
+	@ContentWidget(id = R.id.d_takecar_distance_lin) LinearLayout d_takecar_distance_lin;
+	@ContentWidget(id = R.id.d_returncar_distance_lin) LinearLayout d_returncar_distance_lin;
+	@ContentWidget(id = R.id.d_all_distance_lin) LinearLayout d_all_distance_lin;
+	@ContentWidget(id = R.id.d_all_distance) TextView d_all_distance;
 	
+	/*油量*/
 	@ContentWidget(id = R.id.c_takecar_oil) TextView c_takecar_oil;
 	@ContentWidget(id = R.id.c_start_oil) TextView c_start_oil;
 	@ContentWidget(id = R.id.c_end_oil) TextView c_end_oil;
 	@ContentWidget(id = R.id.c_return_oil) TextView c_return_oil;
-	
-	
+		
 	@ContentWidget(id = R.id.d_takecar_distance) TextView d_takecar_distance;
 	@ContentWidget(id = R.id.d_start_distance) TextView d_start_distance;
 	@ContentWidget(id = R.id.d_end_distance) TextView d_end_distance;
@@ -109,26 +113,28 @@ public class Activity_Order_Finish_Detail extends Activity{
 	}
 	
 	private void initData(){
-		
-		
+				
 		String api = "";
 		
 		switch (Public_Param.orderdeaail_orderType) {
+			
 			case 2://门到门
 				api = "api/door/"+Public_Param.order.orderCode+"/contract";
 				break;
-		
+				
 			case 3://代驾
 				api = "api/contract/"+Public_Param.order.orderCode+"/contractDetail";
 				break;
-	
+				
 			case 4://接送机
 				api = "api/airportTrip/"+Public_Param.order.orderCode+"/contract";
 				break;
+				
 			default:
 				break;
+				
 		}
-
+		
 		new HttpHelper().initData(HttpHelper.Method_Get, this, api, null, null, handler, Request_Contact, 1, new TypeReference<Order>() {});		
 		
 	}
@@ -204,6 +210,9 @@ public class Activity_Order_Finish_Detail extends Activity{
 									
 									d_takecar_distance.setText(order.driverTakeCarMileage == null ? order.takeCarMileage.toString()+"公里" : order.driverTakeCarMileage.toString()+"公里");
 									
+									d_takecar_distance_lin.setVisibility(View.VISIBLE);
+									d_returncar_distance_lin.setVisibility(View.VISIBLE);
+									d_all_distance_lin.setVisibility(View.GONE);
 									break;
 					
 								case 4://接送机	
@@ -223,7 +232,13 @@ public class Activity_Order_Finish_Detail extends Activity{
 										b_start_address.setText(""+order.tripAddress);
 										b_end_address.setText(order.clientActualDebusAddress == null ? order.tripAddress : order.clientActualDebusAddress);
 									}
+									
+									d_takecar_distance_lin.setVisibility(View.GONE);
+									d_returncar_distance_lin.setVisibility(View.GONE);
+									d_all_distance_lin.setVisibility(View.VISIBLE);
+									d_all_distance.setText((order.clientDownMileage.intValue()-order.clientUpMileage.intValue())+"公里");
 									break;
+									
 								default:
 									break;
 							}

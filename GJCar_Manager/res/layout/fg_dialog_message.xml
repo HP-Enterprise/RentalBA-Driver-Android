@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:gravity="center"
-            android:text="消息"
+            android:text="提示"
             android:textColor="@color/page_text_normal3" 
             android:textSize="16dp"/>
 

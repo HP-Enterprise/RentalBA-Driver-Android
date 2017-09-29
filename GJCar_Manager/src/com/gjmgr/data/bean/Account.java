@@ -7,4 +7,5 @@ public class Account {
 	public String phone;
 	public String password;
 	public String token;
+	public String cityId;
 }

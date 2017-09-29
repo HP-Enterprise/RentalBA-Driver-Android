@@ -246,6 +246,9 @@ System.out.println("nowDay"+nowDay);
 	 */
 	private static void initDay(int arg1, int arg2) {
 		day.setAdapter(new NumericWheelAdapter(1, getDay(arg1, arg2), "%02d"));
+		day.setLabel("»’");
+		day.setCyclic(true);
+		day.setCurrentItem(0);
 	}
 	
 	/**
@@ -267,21 +270,21 @@ System.out.println("nowDay"+nowDay);
 			break;
 		}
 		switch (month) {
-		case 1:
-		case 3:
-		case 5:
-		case 7:
-		case 8:
-		case 10:
-		case 12:
-			day = 31;
-			break;
-		case 2:
-			day = flag ? 29 : 28;
-			break;
-		default:
-			day = 30;
-			break;
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				day = 31;
+				break;
+			case 2:
+				day = flag ? 29 : 28;
+				break;
+			default:
+				day = 30;
+				break;
 		}
 		return day;
 	}

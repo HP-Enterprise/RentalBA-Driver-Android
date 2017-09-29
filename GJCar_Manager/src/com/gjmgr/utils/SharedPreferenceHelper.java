@@ -17,6 +17,12 @@ public class SharedPreferenceHelper {
 	
 	/**获取token*/
 	public static String getToken(Context context){
+		
+
+		if(context == null){
+			return "" ;
+		}
+				
 		SharedPreferences preferences = context.getSharedPreferences(Public_SP.Account, Context.MODE_PRIVATE);
 		String data = preferences.getString("token", "");
 		return data;
@@ -35,6 +41,12 @@ public class SharedPreferenceHelper {
 	
 	/**获取uid*/
 	public static int getUid(Context context){
+
+		if(context == null){
+			return 0;
+		}
+		
+		
 		SharedPreferences preferences = context.getSharedPreferences(Public_SP.Account, Context.MODE_PRIVATE);
 		int uid = preferences.getInt("uid", 0);
 		return uid;
@@ -44,6 +56,13 @@ public class SharedPreferenceHelper {
 	 * @return
 	 */
 	public static int getInt(Context context, String spName, String key,int defaultValue){
+		
+
+		if(context == null){
+			return 0;
+		}
+		
+		
 		SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
 		int value = preferences.getInt(key, defaultValue);
 		return value;
@@ -54,6 +73,12 @@ public class SharedPreferenceHelper {
 	 * @return
 	 */
 	public static String getString(Context context, String spName, String key){
+		
+
+		if(context == null){
+			return "" ;
+		}
+		
 		
 		SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
 		String value = preferences.getString(key, "");
@@ -74,6 +99,10 @@ public class SharedPreferenceHelper {
 	 * @return
 	 */
 	public static void putString(Context context, String spName, String key,String value){
+		
+		if(context == null){
+			return;
+		}
 		
 		SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();

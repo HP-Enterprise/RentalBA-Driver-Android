@@ -1,9 +1,22 @@
 package com.gjmgr.utils;
 
 import android.content.Context;
+import android.widget.EditText;
 
 public class ValidateHelper {
 
+	/**
+	 * 1，必填项2，非空数据
+	 */
+	public static boolean isNull(EditText edit){
+		
+		if(edit.getText().toString().equals("") || edit.getText().toString() == null){
+			System.out.println("为空");		
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean Validate(Context context, boolean[] oks, String[] messages){
 		
 		boolean isOk = true;

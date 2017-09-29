@@ -43,7 +43,7 @@ public class TitleBarHelper {
 		
 	}
 	
-	public static void Back_ok(final Activity activity, String titleName, final Handler handler, final int what,int index){
+	public static void Back_ok(final Activity activity, String titleName, final Handler handler, final int what,int index,boolean isShow){
 		
 		//添加标题
 		View titleView = View.inflate(activity, R.layout.titlebar_back_ok, null);
@@ -69,6 +69,9 @@ public class TitleBarHelper {
 		
 		/*确定*/
 		TextView ok = (TextView)titleView.findViewById(R.id.ok_true);
+		
+		ok.setVisibility(isShow ? View.VISIBLE : View.GONE);
+		
 		ok.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -79,4 +82,39 @@ public class TitleBarHelper {
 		});
 	}
 	
+	public static void Back_Image(final Activity activity, String titleName, final Handler handler, final int what,int index){
+		
+		//添加标题
+		View titleView = View.inflate(activity, R.layout.titlebar_back_image, null);
+
+		LinearLayout lin = (LinearLayout)activity.findViewById(R.id.activity);
+		
+		lin.addView(titleView,index);//从0开始：0在最上面
+		
+		/*返回*/
+		ImageView back = (ImageView)titleView.findViewById(R.id.back);
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				activity.finish();
+			}
+		});
+		
+		/*标题*/
+		TextView title = (TextView)titleView.findViewById(R.id.title);
+		title.setText(titleName);
+		
+		/*确定*/
+		ImageView go = (ImageView)titleView.findViewById(R.id.go);
+		go.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				handler.sendEmptyMessage(what);
+			}
+		});
+	}
 }

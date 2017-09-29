@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.Header;
 
 import com.gjmgr.activity.user.Activity_Car_Return;
+import com.gjmgr.activity.user.Activity_Order_Add_List;
 import com.gjmgr.activity.user.Activity_Order_Finish_Detail;
 import com.gjmgr.annotation.ContentWidget;
 import com.alibaba.fastjson.JSON;
@@ -22,6 +23,7 @@ import com.gjmgr.utils.HttpHelper;
 import com.gjmgr.utils.IntentHelper;
 import com.gjmgr.utils.StringHelper;
 import com.gjmgr.utils.TimeHelper;
+import com.gjmgr.utils.ToastHelper;
 import com.gjmgr.view.widget.SingleLineZoomTextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -60,6 +62,10 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 	private boolean isDoorToDoor;
 	String[] models;
 	int[] returnCar_melliages;
+	
+	private Handler handler_contract_raod;
+	private boolean isRequest = false;
+	
 	/*Handler*/
 	private Handler handler;
 
@@ -70,6 +76,8 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 		this.isDoorToDoor = isDoorToDoor;
 		this.models = new String[orderlist.size()];
 		this.returnCar_melliages = new int[orderlist.size()];
+		
+		initHandler_Road_Contact();
 	}
 	
 	@Override
@@ -108,6 +116,8 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 		holder.b_start_address = (TextView) convertView.findViewById(R.id.b_start_address);	System.out.println("a7");
 		holder.b_car = (TextView) convertView.findViewById(R.id.b_car);	System.out.println("a8");
 		holder.b_end_address = (TextView) convertView.findViewById(R.id.b_end_address);	System.out.println("a9");
+		
+		holder.c_road = (TextView) convertView.findViewById(R.id.c_road);
 		
 		convertView.setTag(holder);
 //		if (convertView == null) {
@@ -160,6 +170,42 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 			}
 		});
 		
+		holder.c_road.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				if(isRequest){//如果正在请求，就不然它请求
+					
+					return;
+				}
+				isRequest = true;				
+				
+				String api = "";
+				switch (orderlist.get(position).orderType.intValue()) {
+					case 2://门到门
+						api = "api/door/"+orderlist.get(position).orderCode+"/contract";
+						break;
+						
+					case 3://代驾
+						api = "api/contract/"+orderlist.get(position).orderCode+"/contractDetail";
+						break;
+			
+					case 4://接送机
+						api = "api/airportTrip/"+orderlist.get(position).orderCode+"/contract";
+						break;
+					default:
+						break;
+				}
+
+				Public_Param.road_type = orderlist.get(position).orderType.intValue();
+				Public_Param.road_orderId = orderlist.get(position).orderCode;
+				
+				new HttpHelper().initData(HttpHelper.Method_Get, context, api, null, null, handler_contract_raod, position, 1, new TypeReference<Order>() {});		
+
+			}
+		});
+		
 		return convertView;
 		
 	}
@@ -178,6 +224,8 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 		private TextView b_start_address;
 		private TextView b_car;
 		private TextView b_end_address;
+		
+		private TextView c_road;
 		
 	}
 	
@@ -209,15 +257,20 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 			/* 处理请求成功 */
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-
+				
+				if(arg2==null ||new String(arg2)==null||new String(arg2).equals("")){
+					
+					return;
+				}
+					
 				String backData = new String(arg2);
 				System.out.println("req_3_开始");
-
+				
 				JSONObject statusjobject = JSON.parseObject(backData);
-
+				
 				boolean status = statusjobject.getBoolean("status");
 				String message = statusjobject.getString("message");
-
+				
 				if (status) {
 					
 					JSONObject j1 = JSON.parseObject(message);
@@ -338,5 +391,38 @@ public class OrderList_Adapter_Ok extends BaseAdapter {
 
 			}
 		});
+	}
+	
+	private void initHandler_Road_Contact() {
+		
+		handler_contract_raod = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+			
+					isRequest = false;
+					
+					if(msg.getData().getString("message").equals(HandlerHelper.Ok)){
+						
+						Order order = (Order)msg.obj;
+						
+						if(order == null){
+							
+							ToastHelper.showToastShort(context, "完成失败");						
+							return;
+						}
+						
+						Public_Param.road_vehicleId = order.vehicleId;
+						Public_Param.way = Public_Param.Way_Ok;
+						IntentHelper.startActivity(context, Activity_Order_Add_List.class);
+						
+						
+						return;
+					}
+					
+					ToastHelper.showToastShort(context, "生成合同后才能执行此操作");
+			}
+		};
+		
 	}
 }
